@@ -10,8 +10,9 @@ exports.handler = async (event) => {
   try {
     const body = JSON.parse(event.body || "{}");
 
+    // Build payload with defaults if missing
     const payload = {
-      input: body.input || { text: "Hello" },
+      input: body.input || { text: "Hello from Haroot's portfolio site." },
       voice: body.voice || { languageCode: "en-US", name: "en-US-Neural2-C" },
       audioConfig: body.audioConfig || { audioEncoding: "MP3" }
     };
@@ -34,6 +35,7 @@ exports.handler = async (event) => {
       };
     }
 
+    // Return audioContent (base64 string)
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
