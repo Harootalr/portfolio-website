@@ -1,5 +1,13 @@
-# This is the master blueprint for Netlify.
-# It tells the build system exactly where to find the serverless functions.
+# This is the final, explicit blueprint for Netlify.
 
-[functions]
-  directory = "netlify/functions"
+[build]
+  # This command forces Netlify to install the dependencies from package.json.
+  command = "npm install"
+  # This tells Netlify where to find the serverless functions.
+  functions = "netlify/functions"
+
+# This rule makes the function accessible at a cleaner URL.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
