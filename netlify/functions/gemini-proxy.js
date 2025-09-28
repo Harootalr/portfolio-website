@@ -1,5 +1,4 @@
 // netlify/functions/gemini-proxy.js
-
 const fetchFn = globalThis.fetch;
 
 exports.handler = async (event) => {
@@ -10,7 +9,9 @@ exports.handler = async (event) => {
   try {
     const body = JSON.parse(event.body || "{}");
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`;
+    // Use a model that exists on v1beta
+    const url =
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
 
     const resp = await fetchFn(url, {
       method: "POST",
@@ -19,8 +20,7 @@ exports.handler = async (event) => {
     });
 
     const text = await resp.text();
-    let data;
-    try { data = JSON.parse(text); } catch { data = { raw: text }; }
+    let data; try { data = JSON.parse(text); } catch { data = { raw: text }; }
 
     return {
       statusCode: resp.status,
