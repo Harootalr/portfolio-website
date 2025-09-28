@@ -1,13 +1,9 @@
-# This is the final, explicit blueprint for Netlify.
-
-[build]
-  # This command forces Netlify to install the dependencies from package.json.
-  command = "npm install"
-  # This tells Netlify where to find the serverless functions.
-  functions = "netlify/functions"
-
-# This rule makes the function accessible at a cleaner URL.
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
+from = "/api/gemini-proxy"
+to = "/.netlify/functions/gemini-proxy"
+status = 200
+
+[[redirects]]
+from = "/api/gemini-proxy-tts"
+to = "/.netlify/functions/gemini-proxy-tts"
+status = 200
