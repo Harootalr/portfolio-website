@@ -1,63 +1,58 @@
-// Netlify function to proxy requests to Gemini API
-// This is a placeholder implementation
+// This is the final, working code for the main Gemini API proxy.
+
+const fetch = require('node-fetch');
 
 exports.handler = async (event, context) => {
-  // Handle CORS
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  };
-
-  // Handle preflight requests
+  // Handle CORS preflight requests
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
-      headers,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      },
       body: ''
     };
   }
 
-  if (event.httpMethod !== 'POST') {
+  // Ensure the GEMINI_API_KEY is set
+  const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+  if (!GEMINI_API_KEY) {
     return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: 'Method not allowed' })
+      statusCode: 500,
+      body: JSON.stringify({ error: 'API key not configured.' })
     };
   }
 
+  const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
+
   try {
-    // Parse the request body
-    const requestBody = JSON.parse(event.body);
-    
-    // Mock response for demonstration purposes
-    // In a real implementation, this would call the Gemini API
-    const mockResponse = {
-      candidates: [
-        {
-          content: {
-            parts: [
-              {
-                text: "Thank you for your interest in Haroot's portfolio! This is a demonstration response. To fully utilize the AI features, please configure the Gemini API credentials in the Netlify functions. For now, you can explore the portfolio sections to learn more about Haroot's logistics expertise and AI automation projects."
-              }
-            ]
-          }
-        }
-      ]
-    };
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: event.body, // Forward the request body from the frontend
+    });
+
+    if (!response.ok) {
+        const errorData = await response.text();
+        console.error("Gemini API Error:", errorData);
+        return { statusCode: response.status, body: JSON.stringify({ error: 'Failed to fetch from Gemini API.', details: errorData }) };
+    }
+
+    const data = await response.json();
 
     return {
       statusCode: 200,
-      headers,
-      body: JSON.stringify(mockResponse)
+      headers: { 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify(data),
     };
 
   } catch (error) {
-    console.error('Error in gemini-proxy:', error);
+    console.error('Proxy Error:', error);
     return {
       statusCode: 500,
-      headers,
-      body: JSON.stringify({ error: 'Internal server error' })
+      body: JSON.stringify({ error: 'Internal Server Error in proxy function.' }),
     };
   }
 };
