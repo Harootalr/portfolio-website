@@ -1,5 +1,4 @@
-// This is the final, working code for the main Gemini API proxy.
-
+// Final, corrected version for node-fetch v2 compatibility.
 const fetch = require('node-fetch');
 
 exports.handler = async (event, context) => {
@@ -16,7 +15,6 @@ exports.handler = async (event, context) => {
     };
   }
 
-  // Ensure the GEMINI_API_KEY is set
   const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
   if (!GEMINI_API_KEY) {
     return {
@@ -31,12 +29,11 @@ exports.handler = async (event, context) => {
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: event.body, // Forward the request body from the frontend
+      body: event.body,
     });
 
     if (!response.ok) {
         const errorData = await response.text();
-        console.error("Gemini API Error:", errorData);
         return { statusCode: response.status, body: JSON.stringify({ error: 'Failed to fetch from Gemini API.', details: errorData }) };
     }
 
@@ -49,7 +46,6 @@ exports.handler = async (event, context) => {
     };
 
   } catch (error) {
-    console.error('Proxy Error:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: 'Internal Server Error in proxy function.' }),
