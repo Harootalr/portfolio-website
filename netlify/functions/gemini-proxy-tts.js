@@ -1,36 +1,34 @@
-// /netlify/functions/gemini-proxy-tts.js
 export async function handler(event) {
-  if (event.httpMethod !== "POST") {
+  if (event.httpMethod !== "POST")
     return { statusCode: 405, body: JSON.stringify({ error: "Method not allowed" }) };
-  }
 
   try {
-    const body = JSON.parse(event.body);
+    const body = JSON.parse(event.body || "{}");
 
-    const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateSpeech",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.GEMINI_API_KEY}`
-        },
-        body: JSON.stringify(body)
-      }
-    );
+    // Adjust model/path to match your TTS provider if different
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/text-to-speech:generate?key=${process.env.GEMINI_API_KEY}`;
 
-    const buffer = await response.arrayBuffer();
+    const resp = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
 
-    return {
-      statusCode: response.status,
-      headers: {
-        "Content-Type": "audio/mpeg",
-        "Cache-Control": "no-cache"
-      },
-      body: Buffer.from(buffer).toString("base64"),
-      isBase64Encoded: true
-    };
-  } catch (error) {
-    return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
+    if (!resp.ok) {
+      const errText = await resp.text();
+      return { statusCode: resp.status, body: JSON.stringify({ error: errText }) };
+    }
+
+    // Expecting JSON with audioContent (base64) to match your frontend
+    const data = await resp.json();
+
+    // If provider returns raw bytes instead, convert to JSON:
+    // const buffer = await resp.arrayBuffer();
+    // const audioContent = Buffer.from(buffer).toString("base64");
+    // return { statusCode: 200, body: JSON.stringify({ audioContent }) };
+
+    return { statusCode: 200, body: JSON.stringify(data) };
+  } catch (err) {
+    return { statusCode: 500, body: JSON.stringify({ error: String(err) }) };
   }
 }
