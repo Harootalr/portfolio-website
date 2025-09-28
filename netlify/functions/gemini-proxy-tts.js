@@ -1,55 +1,36 @@
-// Final, corrected version for node-fetch v2 compatibility.
-const fetch = require('node-fetch');
-
-exports.handler = async (event, context) => {
-  // Handle CORS preflight requests
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      },
-      body: ''
-    };
+// /netlify/functions/gemini-proxy-tts.js
+export async function handler(event) {
+  if (event.httpMethod !== "POST") {
+    return { statusCode: 405, body: JSON.stringify({ error: "Method not allowed" }) };
   }
-
-  const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-  if (!GEMINI_API_KEY) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'API key not configured.' })
-    };
-  }
-  
-  const ttsUrl = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${GEMINI_API_KEY}`;
 
   try {
-    const response = await fetch(ttsUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: event.body,
-    });
+    const body = JSON.parse(event.body);
 
-    if (!response.ok) {
-        const errorData = await response.text();
-        return { statusCode: response.status, body: JSON.stringify({ error: 'Failed to fetch from TTS API.', details: errorData }) };
-    }
+    const response = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateSpeech",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.GEMINI_API_KEY}`
+        },
+        body: JSON.stringify(body)
+      }
+    );
 
-    const data = await response.json();
+    const buffer = await response.arrayBuffer();
 
     return {
-      statusCode: 200,
-      headers: { 'Access-Control-Allow-Origin': '*' },
-      body: JSON.stringify(data),
+      statusCode: response.status,
+      headers: {
+        "Content-Type": "audio/mpeg",
+        "Cache-Control": "no-cache"
+      },
+      body: Buffer.from(buffer).toString("base64"),
+      isBase64Encoded: true
     };
-
   } catch (error) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Internal Server Error in TTS proxy function.' }),
-    };
+    return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
   }
-};
-
+}
