@@ -1,5 +1,6 @@
-// CommonJS export for Netlify Functions
-const fetchFn = globalThis.fetch || ((...args) => import('node-fetch').then(({default: f}) => f(...args)));
+// netlify/functions/gemini-proxy.js
+
+const fetchFn = globalThis.fetch;
 
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
@@ -18,7 +19,6 @@ exports.handler = async (event) => {
     });
 
     const text = await resp.text();
-    // ensure JSON to the client
     let data;
     try { data = JSON.parse(text); } catch { data = { raw: text }; }
 
