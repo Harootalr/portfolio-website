@@ -1,12 +1,2 @@
 [build]
   functions = "netlify/functions"
-
-[[redirects]]
-from = "/api/gemini-proxy"
-to = "/netlify/functions/gemini-proxy"
-status = 200
-
-[[redirects]]
-from = "/api/gemini-proxy-tts"
-to = "/netlify/functions/gemini-proxy-tts"
-status = 200
