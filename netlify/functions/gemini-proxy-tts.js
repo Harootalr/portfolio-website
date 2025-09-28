@@ -1,5 +1,6 @@
-// Use Google Cloud Text-to-Speech JSON API. Returns base64 in audioContent.
-const fetchFn = globalThis.fetch || ((...args) => import('node-fetch').then(({default: f}) => f(...args)));
+// netlify/functions/gemini-proxy-tts.js
+
+const fetchFn = globalThis.fetch;
 
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
@@ -9,8 +10,6 @@ exports.handler = async (event) => {
   try {
     const body = JSON.parse(event.body || "{}");
 
-    // Expecting { input: { text }, voice?: {...}, audioConfig?: {...} }
-    // Provide safe defaults if missing
     const payload = {
       input: body.input || { text: "Hello" },
       voice: body.voice || { languageCode: "en-US", name: "en-US-Neural2-C" },
@@ -35,7 +34,6 @@ exports.handler = async (event) => {
       };
     }
 
-    // Return JSON with audioContent (base64) to match your frontend
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
