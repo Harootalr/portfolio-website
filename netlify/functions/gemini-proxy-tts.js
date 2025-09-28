@@ -1,34 +1,51 @@
-export async function handler(event) {
-  if (event.httpMethod !== "POST")
+// Use Google Cloud Text-to-Speech JSON API. Returns base64 in audioContent.
+const fetchFn = globalThis.fetch || ((...args) => import('node-fetch').then(({default: f}) => f(...args)));
+
+exports.handler = async (event) => {
+  if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: JSON.stringify({ error: "Method not allowed" }) };
+  }
 
   try {
     const body = JSON.parse(event.body || "{}");
 
-    // Adjust model/path to match your TTS provider if different
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/text-to-speech:generate?key=${process.env.GEMINI_API_KEY}`;
+    // Expecting { input: { text }, voice?: {...}, audioConfig?: {...} }
+    // Provide safe defaults if missing
+    const payload = {
+      input: body.input || { text: "Hello" },
+      voice: body.voice || { languageCode: "en-US", name: "en-US-Neural2-C" },
+      audioConfig: body.audioConfig || { audioEncoding: "MP3" }
+    };
 
-    const resp = await fetch(url, {
+    const url = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${process.env.GEMINI_API_KEY}`;
+
+    const resp = await fetchFn(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
+      body: JSON.stringify(payload)
     });
 
-    if (!resp.ok) {
-      const errText = await resp.text();
-      return { statusCode: resp.status, body: JSON.stringify({ error: errText }) };
-    }
-
-    // Expecting JSON with audioContent (base64) to match your frontend
     const data = await resp.json();
 
-    // If provider returns raw bytes instead, convert to JSON:
-    // const buffer = await resp.arrayBuffer();
-    // const audioContent = Buffer.from(buffer).toString("base64");
-    // return { statusCode: 200, body: JSON.stringify({ audioContent }) };
+    if (!resp.ok) {
+      return {
+        statusCode: resp.status,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ error: data.error || data })
+      };
+    }
 
-    return { statusCode: 200, body: JSON.stringify(data) };
+    // Return JSON with audioContent (base64) to match your frontend
+    return {
+      statusCode: 200,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ audioContent: data.audioContent })
+    };
   } catch (err) {
-    return { statusCode: 500, body: JSON.stringify({ error: String(err) }) };
+    return {
+      statusCode: 500,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ error: String(err) })
+    };
   }
-}
+};
