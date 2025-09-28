@@ -1,51 +1,55 @@
-// Netlify function to proxy text-to-speech requests
-// This is a placeholder implementation
+// Final, corrected version for node-fetch v2 compatibility.
+const fetch = require('node-fetch');
 
 exports.handler = async (event, context) => {
-  // Handle CORS
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  };
-
-  // Handle preflight requests
+  // Handle CORS preflight requests
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
-      headers,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      },
       body: ''
     };
   }
 
-  if (event.httpMethod !== 'POST') {
+  const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+  if (!GEMINI_API_KEY) {
     return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: 'Method not allowed' })
+      statusCode: 500,
+      body: JSON.stringify({ error: 'API key not configured.' })
     };
   }
+  
+  const ttsUrl = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${GEMINI_API_KEY}`;
 
   try {
-    // Parse the request body
-    const requestBody = JSON.parse(event.body);
-    
-    // Mock response - in a real implementation this would generate audio
-    // For now, return an error that will be handled gracefully by the frontend
+    const response = await fetch(ttsUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: event.body,
+    });
+
+    if (!response.ok) {
+        const errorData = await response.text();
+        return { statusCode: response.status, body: JSON.stringify({ error: 'Failed to fetch from TTS API.', details: errorData }) };
+    }
+
+    const data = await response.json();
+
     return {
-      statusCode: 503,
-      headers,
-      body: JSON.stringify({ 
-        error: 'Text-to-speech service unavailable. Please configure TTS API credentials.' 
-      })
+      statusCode: 200,
+      headers: { 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify(data),
     };
 
   } catch (error) {
-    console.error('Error in gemini-proxy-tts:', error);
     return {
       statusCode: 500,
-      headers,
-      body: JSON.stringify({ error: 'Internal server error' })
+      body: JSON.stringify({ error: 'Internal Server Error in TTS proxy function.' }),
     };
   }
 };
+
