@@ -1,21 +1,37 @@
-export async function handler(event) {
-  if (event.httpMethod !== "POST")
+// CommonJS export for Netlify Functions
+const fetchFn = globalThis.fetch || ((...args) => import('node-fetch').then(({default: f}) => f(...args)));
+
+exports.handler = async (event) => {
+  if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: JSON.stringify({ error: "Method not allowed" }) };
+  }
 
   try {
     const body = JSON.parse(event.body || "{}");
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINI_API_KEY}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`;
 
-    const resp = await fetch(url, {
+    const resp = await fetchFn(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body)
     });
 
-    const data = await resp.json();
-    return { statusCode: resp.status, body: JSON.stringify(data) };
+    const text = await resp.text();
+    // ensure JSON to the client
+    let data;
+    try { data = JSON.parse(text); } catch { data = { raw: text }; }
+
+    return {
+      statusCode: resp.status,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    };
   } catch (err) {
-    return { statusCode: 500, body: JSON.stringify({ error: String(err) }) };
+    return {
+      statusCode: 500,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ error: String(err) })
+    };
   }
-}
+};
