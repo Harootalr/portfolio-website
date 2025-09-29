@@ -323,10 +323,16 @@
                
                 const apiUrl = '/.netlify/functions/gemini-proxy';
 
-                const payload = {
-                    contents: [{ role: "user", parts: [{ text: fullPrompt }] }],
-                    systemInstruction: { parts: [{ text: systemPrompt }] }
-                };
+              const payload = {
+    contents: [
+        { role: "user", parts: [{ text: fullPrompt }] }
+    ],
+    systemInstruction: {
+        role: "system",
+        parts: [{ text: systemPrompt }]
+    }
+};
+
 
                 try {
                     const response = await fetch(apiUrl, {
