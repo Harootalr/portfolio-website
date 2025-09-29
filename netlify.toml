@@ -1,2 +1,11 @@
 [build]
+  # This command forces Netlify to install the dependencies from package.json.
+  command = "npm install"
+  # This tells Netlify where to find the serverless functions.
   functions = "netlify/functions"
+
+# This rule makes the function accessible at a cleaner URL.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
