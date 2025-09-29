@@ -164,7 +164,7 @@
                         </div>
                         <div id="ai-response-container" class="text-left text-white mt-8">
                             <div class="text-slate-400 italic">
-                                Ready to assist with your automation questions...
+                                Ready to assist with any questions about Haroot...
                             </div>
                         </div>
                     </div>
@@ -513,8 +513,9 @@
                 
                 responseP.classList.remove('animate-pulse');
 
-                if(responseText){
-                    typewriterEffect(responseP, responseText);
+                    If(responseText){
+    const cleanedText = responseText.replace(/\*\*/g, '');
+    typewriterEffect(responseP, cleanedText);
                 }
                 
                 aiSubmit.disabled = false;
