@@ -10,17 +10,32 @@ exports.handler = async (event) => {
   let body = {};
   try { body = JSON.parse(event.body || "{}"); } catch { return { statusCode: 400, body: '{"error":"Invalid JSON"}' }; }
 
-  const model = (body.model || "gemini-1.5-flash-latest").replace(/^models\//, "");
+  const model = (body.model || "gemini-2.5-flash").replace(/^models\//, "");
   const url = `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${apiKey}`;
 
   const contents = body.contents || [{ role: "user", parts: [{ text: body.prompt ?? "Hello" }] }];
 
-  const resp = await fetchFn(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ contents })   // ← no systemInstruction
-  });
+  const requestBody = { contents };
 
-  const text = await resp.text();
-  return { statusCode: resp.status, headers: { "Content-Type": "application/json" }, body: text };
+  if (body.systemInstruction) {
+    requestBody.systemInstruction = body.systemInstruction;
+  }
+
+  try {
+    const resp = await fetchFn(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody)
+    });
+
+    const text = await resp.text();
+    return { statusCode: resp.status, headers: { "Content-Type": "application/json" }, body: text };
+  } catch (error) {
+    console.error("Error calling Gemini API:", error);
+    return {
+      statusCode: 500,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ error: "Failed to connect to AI service", details: error.message })
+    };
+  }
 };
