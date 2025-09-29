@@ -1,4 +1,4 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -114,7 +114,7 @@
 
     <!-- Main Content -->
     <main class="container mx-auto px-6 max-w-7xl">
-
+        
         <!-- Hero Section -->
         <section class="min-h-[60vh] md:min-h-[calc(100vh-80px)] flex flex-col items-center justify-center text-center relative border border-slate-800/50 rounded-2xl mx-4 my-4 md:mx-6 md:my-8 overflow-hidden">
             <div class="hero-background" id="hero-bg"></div>
@@ -182,7 +182,7 @@
                 </div>
             </div>
         </section>
-
+        
         <!-- Contact Section -->
         <section id="contact" class="py-24 section-fade-in">
             <h2 class="text-4xl font-bold text-white text-center mb-16 flex items-center justify-center gap-3">
@@ -265,7 +265,7 @@
                             <p class="text-slate-300">Designed a comprehensive workflow for a Purchase Order AI agent to manage inbound and outbound logistics operations, from carrier management to packaging and shipment status.</p>
                         </div>
                     </div>
-
+                    
                     <!-- Project 2 -->
                     <div class="relative flex items-start gap-6 md:gap-0">
                         <div class="absolute left-0 md:left-1/2 md:-translate-x-1/2 w-12 h-12 flex items-center justify-center">
@@ -276,7 +276,7 @@
                             <p class="text-slate-300">Mapped an end-to-end automated process for handling product returns via an AI agent, covering everything from initial request and data validation to final resolution and system updates.</p>
                         </div>
                     </div>
-
+                    
                     <!-- Project 3 -->
                     <div class="relative flex items-start gap-6 md:gap-0">
                         <div class="absolute left-0 md:left-1/2 md:-translate-x-1/2 w-12 h-12 flex items-center justify-center">
@@ -317,7 +317,7 @@
             <p>&copy; 2025 Haroot Al Rasheed. All rights reserved.</p>
         </div>
     </footer>
-
+    
     <script>
         // --- Typewriter Effect for AI ---
         const typewriterEffect = (element, text, callback) => {
@@ -390,14 +390,11 @@
                 - Can integrate and work with any type of ERP system to automate and improve workflows.
 
                 Projects:
-                - PO Virtual AI Agent: Designed a workflow for a Purchase Order AI agent for inbound/outbound logistics.
-                - AI Return Workflow Automation: Mapped an end-to-end automated process for product returns using an AI agent.
                 - PO Virtual AI Agent: Designed a comprehensive workflow for a Purchase Order AI agent to manage inbound and outbound logistics operations.
                 - AI Return Workflow Automation: Mapped an end-to-end automated process for handling product returns using an AI agent.
                 - AI Agent User Interaction Flow: Developed a user-centric flowchart for AI agent interaction logic.
 
                 Skills:
-                - Low-code Microsoft, Azure AI Foundry, Miro Mapping, SQL Basics, FMEA Analysis, Alpega CMS, INET TMS, Power BI.
                 - Low-code Microsoft: I leverage platforms like Power Automate to rapidly build and deploy custom automation solutions, turning complex processes into efficient, user-friendly applications for your team.
                 - Azure AI Foundry: I utilize Azure AI Foundry to develop and scale sophisticated AI models, providing your enterprise with intelligence for predictive analytics and operational optimization.
                 - Miro Mapping: I expertly use Miro for visual process mapping and collaborative workflow design. This ensures clarity and alignment across teams for even the most complex logistics projects.
@@ -418,12 +415,6 @@
             `;
 
             const systemPrompt = `
-                You are Haroot Al Rasheed's professional AI assistant. Your personality is professional, knowledgeable, and helpful.
-                Your primary goal is to answer questions from potential recruiters or clients based *only* on the provided knowledge base.
-                When asked a question, you will use the information in the knowledge base to formulate a concise and relevant answer from Haroot's perspective (use "I" and "my").
-                Do not make up information. If the answer is not in the knowledge base, politely state that you can't answer that specific question and suggest they ask about skills, experience, or projects, or guide them to the contact information for more detailed discussions.
-                For example, if asked about real-time availability, respond naturally like: "I can't provide my real-time schedule, but I'm actively seeking new opportunities. I recommend reaching out via my email or phone to discuss availability."
-            `;
                 You are Haroot Al Rasheed's professional AI assistant. Your personality is professional, knowledgeable, and consultative.
                 Your primary goal is to answer questions from potential recruiters or clients. 
                 Use the knowledge base provided to formulate a concise and relevant answer from Haroot's perspective (use "I" and "my"). When discussing skills, adopt a helpful, "sales-oriented" tone, explaining the value and benefit of each skill to the user's business.
@@ -432,26 +423,24 @@
 
 `;  
             
-
+            
             const curatedFollowUps = [
                 "What is your experience with ERP systems?",
                 "How can you help automate our supply chain?",
                 "Tell me more about your AI agent projects?",
                 "How can I contact you?"
             ];
-
+            
             const callGeminiAPI = async (userPrompt) => {
                 const fullPrompt = `
-                    Here is my professional background and skills (knowledge base):
                     Use the following knowledge base about me, Haroot Al Rasheed, to answer the user's question from my perspective.
                  Prioritize information from this knowledge base. If the answer is not found here, you may use your general knowledge, but you must maintain my professional persona.
                     ---
                     ${knowledgeBase}
                     ---
-                    Based *only* on the information above, answer the following question from my perspective: "${userPrompt}"
                     USER QUESTION: "${userPrompt}
                 `;
-
+               
                 const apiUrl = '/api/gemini-proxy';
 
                 const payload = {
@@ -506,28 +495,28 @@
 });
                 suggestedFollowUpsContainer.appendChild(buttonContainer);
             };
-
+            
             const handleSubmission = async () => {
                 const prompt = aiPrompt.value.trim();
                 if (!prompt) return;
 
                 aiSubmit.disabled = true;
                 aiSubmit.textContent = 'Thinking...';
-
+                
                 let responseP = document.createElement('p');
                 aiResponseContainer.innerHTML = '';
                 aiResponseContainer.appendChild(responseP);
                 responseP.classList.add('text-white', 'animate-pulse');
                 responseP.textContent = 'Generating response...';
-
+                
                 const responseText = await callGeminiAPI(prompt);
-
+                
                 responseP.classList.remove('animate-pulse');
 
                 if(responseText){
                     typewriterEffect(responseP, responseText);
                 }
-
+                
                 aiSubmit.disabled = false;
                 aiSubmit.textContent = 'Get Insight';
                 aiPrompt.value = '';
@@ -554,7 +543,7 @@
                     });
                 });
             };
-
+            
             if(mobileMenuButton){
                 mobileMenuButton.addEventListener('click', () => {
                     if(mobileMenu) mobileMenu.classList.toggle('-translate-x-full');
