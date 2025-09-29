@@ -1,51 +1,27 @@
-// netlify/functions/gemini-proxy-tts.js
-
 const fetchFn = globalThis.fetch;
 
 exports.handler = async (event) => {
-  if (event.httpMethod !== "POST") {
+  if (event.httpMethod !== "POST")
     return { statusCode: 405, body: JSON.stringify({ error: "Method not allowed" }) };
-  }
 
   try {
     const body = JSON.parse(event.body || "{}");
 
-    // Build payload with defaults if missing
     const payload = {
       input: body.input || { text: "Hello from Haroot's portfolio site." },
       voice: body.voice || { languageCode: "en-US", name: "en-US-Neural2-C" },
       audioConfig: body.audioConfig || { audioEncoding: "MP3" }
     };
 
-    const url = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${process.env.GEMINI_API_KEY}`;
+    const KEY = process.env.GOOGLE_TTS_API_KEY || process.env.GEMINI_API_KEY; // prefer TTS key if set
+    const url = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${KEY}`;
 
-    const resp = await fetchFn(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
+    const resp = await fetchFn(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
     const data = await resp.json();
 
-    if (!resp.ok) {
-      return {
-        statusCode: resp.status,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ error: data.error || data })
-      };
-    }
-
-    // Return audioContent (base64 string)
-    return {
-      statusCode: 200,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ audioContent: data.audioContent })
-    };
+    if (!resp.ok) return { statusCode: resp.status, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ error: data.error || data }) };
+    return { statusCode: 200, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audioContent: data.audioContent }) };
   } catch (err) {
-    return {
-      statusCode: 500,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ error: String(err) })
-    };
+    return { statusCode: 500, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ error: String(err) }) };
   }
 };
