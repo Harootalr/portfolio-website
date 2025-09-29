@@ -390,12 +390,23 @@
                 - Can integrate and work with any type of ERP system to automate and improve workflows.
 
                 Projects:
-                - PO Virtual AI Agent: Designed a workflow for a Purchase Order AI agent for inbound/outbound logistics.
-                - AI Return Workflow Automation: Mapped an end-to-end automated process for product returns using an AI agent.
+                - PO Virtual AI Agent: Designed a comprehensive workflow for a Purchase Order AI agent to manage inbound and outbound logistics operations.
+                - AI Return Workflow Automation: Mapped an end-to-end automated process for handling product returns using an AI agent.
                 - AI Agent User Interaction Flow: Developed a user-centric flowchart for AI agent interaction logic.
 
                 Skills:
-                - Low-code Microsoft, Azure AI Foundry, Miro Mapping, SQL Basics, FMEA Analysis, Alpega CMS, INET TMS, Power BI.
+                - Low-code Microsoft: I leverage platforms like Power Automate to rapidly build and deploy custom automation solutions, turning complex processes into efficient, user-friendly applications for your team.
+                - Azure AI Foundry: I utilize Azure AI Foundry to develop and scale sophisticated AI models, providing your enterprise with intelligence for predictive analytics and operational optimization.
+                - Miro Mapping: I expertly use Miro for visual process mapping and collaborative workflow design. This ensures clarity and alignment across teams for even the most complex logistics projects.
+                - SQL Basics: My foundational SQL skills allow me to query databases, extract key business insights, and support data-driven decision-making to improve your supply chain.
+                - FMEA Analysis: I conduct detailed Failure Modes and Effects Analysis (FMEA) to proactively identify potential risks in logistics processes, ensuring operational resilience and quality for your business.
+                - Alpega CMS & INET TMS: I am proficient with industry-standard logistics software like Alpega CMS and INET TMS to manage transportation and carrier operations effectively.
+                - Power BI: I can transform your raw logistics data into actionable insights and interactive dashboards using Power BI, enabling clear performance tracking and strategic planning.
+
+                Professional Philosophy & Goals:
+                - My Approach: I believe in a first-principles approach to problem-solving. I start by thoroughly understanding the 'why' behind a process before architecting a solution. I use data to identify bottlenecks and collaborative tools like Miro to ensure all stakeholders are aligned. My goal is always to build solutions that are not just technologically impressive, but also user-friendly and scalable.
+                - My Ambition: I am driven to tackle complex, end-to-end supply chain challenges. My goal is to be in a role where I can leverage AI and low-code platforms at scale to deliver significant, measurable improvements to an enterprise's operational efficiency and resilience.
+
 
                 Contact Information:
                 - Email: haroot.al.rasheed@volvocars.com
@@ -404,12 +415,14 @@
             `;
 
             const systemPrompt = `
-                You are Haroot Al Rasheed's professional AI assistant. Your personality is professional, knowledgeable, and helpful.
-                Your primary goal is to answer questions from potential recruiters or clients based *only* on the provided knowledge base.
-                When asked a question, you will use the information in the knowledge base to formulate a concise and relevant answer from Haroot's perspective (use "I" and "my").
-                Do not make up information. If the answer is not in the knowledge base, politely state that you can't answer that specific question and suggest they ask about skills, experience, or projects, or guide them to the contact information for more detailed discussions.
-                For example, if asked about real-time availability, respond naturally like: "I can't provide my real-time schedule, but I'm actively seeking new opportunities. I recommend reaching out via my email or phone to discuss availability."
-            `;
+                You are Haroot Al Rasheed's professional AI assistant. Your personality is professional, knowledgeable, and consultative.
+                Your primary goal is to answer questions from potential recruiters or clients. 
+                Use the knowledge base provided to formulate a concise and relevant answer from Haroot's perspective (use "I" and "my"). When discussing skills, adopt a helpful, "sales-oriented" tone, explaining the value and benefit of each skill to the user's business.
+                Prioritize information from the knowledge base. If the answer is not found there, you may use your general knowledge, but you must maintain my professional persona.
+                Do not make up information that contradicts the knowledge base. If you cannot answer, politely state that and guide them to the contact information.
+
+`;  
+            
             
             const curatedFollowUps = [
                 "What is your experience with ERP systems?",
@@ -420,11 +433,12 @@
             
             const callGeminiAPI = async (userPrompt) => {
                 const fullPrompt = `
-                    Here is my professional background and skills (knowledge base):
+                    Use the following knowledge base about me, Haroot Al Rasheed, to answer the user's question from my perspective.
+                 Prioritize information from this knowledge base. If the answer is not found here, you may use your general knowledge, but you must maintain my professional persona.
                     ---
                     ${knowledgeBase}
                     ---
-                    Based *only* on the information above, answer the following question from my perspective: "${userPrompt}"
+                    USER QUESTION: "${userPrompt}
                 `;
                
                 const apiUrl = '/api/gemini-proxy';
