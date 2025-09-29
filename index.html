@@ -10,20 +10,67 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0F172A; color: #94A3B8; }
-        .hero-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background-color: #0B1120;
-            background-image: linear-gradient(rgba(148,163,184,0.1) 1px, transparent 1px),
-                              linear-gradient(to right, rgba(148,163,184,0.1) 1px, transparent 1px);
-            background-size: 40px 40px; }
-        .glow-on-hover { transition: box-shadow 0.3s ease-in-out; }
-        .glow-on-hover:hover { box-shadow: 0 0 15px 5px rgba(56,189,248,0.4); }
-        .section-fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-        .section-fade-in.visible { opacity: 1; transform: translateY(0); }
-        #mobile-menu { transition: transform 0.3s ease-in-out; }
-        .typing-cursor::after { content: '▋'; animation: blink 1s step-end infinite; color: white; margin-left: 2px; font-family: monospace; }
-        @keyframes blink { 50% { opacity: 0; } }
-        .timeline-node-pulse { animation: pulse-border 2s cubic-bezier(0.4,0,0.6,1) infinite; }
-        @keyframes pulse-border { 0%,100% { box-shadow: 0 0 0 0 rgba(56,189,248,0.7);} 50% { box-shadow: 0 0 0 8px rgba(56,189,248,0);} }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A; /* slate-900 */
+            color: #94A3B8; /* slate-400 */
+        }
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-color: #0B1120;
+            /* Creative, low-cost grid pattern */
+            background-image: 
+                linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px),
+                linear-gradient(to right, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .glow-on-hover {
+            transition: box-shadow 0.3s ease-in-out;
+        }
+        .glow-on-hover:hover {
+            box-shadow: 0 0 15px 5px rgba(56, 189, 248, 0.4); /* cyan-400 */
+        }
+        .section-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .section-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .typing-cursor::after {
+            content: '▋';
+            animation: blink 1s step-end infinite;
+            color: white;
+            margin-left: 2px;
+            font-family: monospace;
+        }
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+        /* Timeline Node Pulse Animation */
+        .timeline-node-pulse {
+            animation: pulse-border 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-border {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(56, 189, 248, 0);
+            }
+        }
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -92,22 +139,19 @@
                    I'm Haroot's professional AI assistant. Challenge me with an automation problem for your enterprise to see how my skills can bring value to your team.
                 </p>
                 <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-8">
-                    <div id="ai-response-container" class="text-left text-white mb-6 min-h-[80px]"></div>
+                    <div id="ai-response-container" class="text-left text-white mb-6 min-h-[80px]">
+                        <!-- AI Response will be injected here -->
+                    </div>
 
                     <div class="relative mb-6">
                         <input type="text" id="ai-prompt" class="w-full bg-slate-700 border border-slate-600 text-white rounded-full py-3 px-6 pr-28 focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Ask an automation question...">
-                        <button id="ai-submit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-6 rounded-full transition-transform duration-300 transform hover:scale-105">
+                        <button id="ai-submit" class="absolute right-2 top-1/2 -translate-y-1.2 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-6 rounded-full transition-transform duration-300 transform hover:scale-105">
                             Get Insight
                         </button>
                     </div>
 
-                    <div id="suggested-follow-ups" class="text-left"></div>
-
-                    <div id="audio-controls" class="mt-4 flex items-center justify-start hidden">
-                         <button id="read-aloud-btn" class="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-                            <span id="read-aloud-text">Read Aloud</span>
-                        </button>
+                    <div id="suggested-follow-ups" class="text-left">
+                        <!-- Suggested follow-ups will be injected here -->
                     </div>
                 </div>
             </div>
@@ -120,6 +164,7 @@
                 Get In Touch
             </h2>
             <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-8 text-center">
+                <!-- Email Card -->
                 <a href="mailto:haroot.al.rasheed@volvocars.com" class="bg-slate-800/50 border border-slate-700 p-8 rounded-lg hover:border-cyan-500 hover:-translate-y-2 transition-all duration-300 glow-on-hover group">
                     <div class="flex justify-center mb-4">
                          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 group-hover:scale-110 transition-transform"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
@@ -127,6 +172,7 @@
                     <h3 class="text-xl font-semibold text-white mb-2">Email</h3>
                     <p class="text-slate-400 group-hover:text-cyan-300 transition-colors break-words">haroot.al.rasheed@volvocars.com</p>
                 </a>
+                <!-- Phone Card -->
                 <a href="tel:+46793379623" class="bg-slate-800/50 border border-slate-700 p-8 rounded-lg hover:border-cyan-500 hover:-translate-y-2 transition-all duration-300 glow-on-hover group">
                     <div class="flex justify-center mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 group-hover:scale-110 transition-transform"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
@@ -134,7 +180,8 @@
                     <h3 class="text-xl font-semibold text-white mb-2">Phone</h3>
                     <p class="text-slate-400 group-hover:text-cyan-300 transition-colors">+46 79 337 96 23</p>
                 </a>
-                <a href="https://www.google.com/maps/search/?api=1&query=L%C3%A5ngstr%C3%BMsgatan+300,+418+70+G%C3%B6teborg" target="_blank" rel="noopener noreferrer" class="bg-slate-800/50 border border-slate-700 p-8 rounded-lg hover:border-cyan-500 hover:-translate-y-2 transition-all duration-300 glow-on-hover group">
+                <!-- Location Card -->
+                <a href="https://www.google.com/maps/search/?api=1&query=L%C3%A5ngstr%C3%Bmsgatan+300,+418+70+G%C3%B6teborg" target="_blank" rel="noopener noreferrer" class="bg-slate-800/50 border border-slate-700 p-8 rounded-lg hover:border-cyan-500 hover:-translate-y-2 transition-all duration-300 glow-on-hover group">
                     <div class="flex justify-center mb-4">
                          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 group-hover:scale-110 transition-transform"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                     </div>
@@ -177,7 +224,12 @@
                 Project Experience & Workflow Design
             </h2>
             <div class="relative max-w-4xl mx-auto px-4">
+                <!-- Vertical Line -->
+                <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-0.5 h-full bg-slate-700"></div>
+
+                <!-- Project Items Container -->
                 <div class="space-y-16">
+                    <!-- Project 1 -->
                     <div class="relative flex items-start gap-6">
                         <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center">
                             <div class="w-6 h-6 bg-slate-800 border-2 border-cyan-500 rounded-full timeline-node-pulse"></div>
@@ -187,6 +239,8 @@
                             <p class="text-slate-300">Designed a comprehensive workflow for a Purchase Order AI agent to manage inbound and outbound logistics operations, from carrier management to packaging and shipment status.</p>
                         </div>
                     </div>
+                    
+                    <!-- Project 2 -->
                     <div class="relative flex items-start gap-6">
                         <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center">
                             <div class="w-6 h-6 bg-slate-800 border-2 border-cyan-500 rounded-full timeline-node-pulse" style="animation-delay: 0.2s;"></div>
@@ -196,6 +250,8 @@
                             <p class="text-slate-300">Mapped an end-to-end automated process for handling product returns via an AI agent, covering everything from initial request and data validation to final resolution and system updates.</p>
                         </div>
                     </div>
+                    
+                    <!-- Project 3 -->
                     <div class="relative flex items-start gap-6">
                         <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center">
                             <div class="w-6 h-6 bg-slate-800 border-2 border-cyan-500 rounded-full timeline-node-pulse" style="animation-delay: 0.4s;"></div>
@@ -208,6 +264,7 @@
                 </div>
             </div>
         </section>
+
 
         <!-- Skills Section -->
         <section id="skills" class="py-20 section-fade-in">
@@ -267,9 +324,6 @@
             const aiSubmit = document.getElementById('ai-submit');
             const aiResponseContainer = document.getElementById('ai-response-container');
             const suggestedFollowUpsContainer = document.getElementById('suggested-follow-ups');
-            const audioControls = document.getElementById('audio-controls');
-            const readAloudBtn = document.getElementById('read-aloud-btn');
-            const readAloudText = document.getElementById('read-aloud-text');
 
             const knowledgeBase = `
                 About Haroot Al Rasheed:
@@ -309,8 +363,6 @@
                 "Tell me more about your AI agent projects?",
                 "How can I contact you?"
             ];
-
-            let currentAudio = null;
             
             const callGeminiAPI = async (userPrompt) => {
                 const fullPrompt = `
@@ -323,16 +375,14 @@
                
                 const apiUrl = '/api/gemini-proxy';
 
-              const payload = {
-    contents: [
-        { role: "user", parts: [{ text: fullPrompt }] }
-    ],
-    systemInstruction: {
-        role: "system",
-        parts: [{ text: systemPrompt }]
-    }
-};
-
+                const payload = {
+                    contents: [
+                        { parts: [{ text: fullPrompt }] }
+                    ],
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    }
+                };
 
                 try {
                     const response = await fetch(apiUrl, {
@@ -364,31 +414,6 @@
                 }
             };
 
-            const callGeminiTTS = async (textToSpeak) => {
-                const apiUrl = '/.netlify/functions/gemini-proxy-tts';
-
-               const payload = {
-    contents: [{ parts: [{ text: fullPrompt }] }],
-    systemInstruction: {
-        parts: [{ text: systemPrompt }]
-    },
-};
-
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (!response.ok) throw new Error('TTS API error');
-                    const result = await response.json();
-                    return result.audioContent;
-                } catch (error) {
-                    console.error("Error calling TTS API:", error);
-                    return null;
-                }
-            };
-
             const displayFollowUps = () => {
                 suggestedFollowUpsContainer.innerHTML = `<h4 class="text-sm font-bold text-slate-400 mb-2">Suggested Follow-ups:</h4>`;
                 const buttonContainer = document.createElement('div');
@@ -399,7 +424,7 @@
                     button.className = 'bg-slate-700 hover:bg-slate-600 text-slate-300 text-sm py-1 px-3 rounded-full transition-colors';
                     button.onclick = () => { aiPrompt.value = q; handleSubmission(); };
                     buttonContainer.appendChild(button);
-                });
+});
                 suggestedFollowUpsContainer.appendChild(buttonContainer);
             };
             
@@ -415,16 +440,13 @@
                 aiResponseContainer.appendChild(responseP);
                 responseP.classList.add('text-white', 'animate-pulse');
                 responseP.textContent = 'Generating response...';
-
-                if(currentAudio) currentAudio.pause();
-                audioControls.classList.add('hidden');
                 
                 const responseText = await callGeminiAPI(prompt);
                 
                 responseP.classList.remove('animate-pulse');
 
                 if(responseText){
-                    typewriterEffect(responseP, responseText, () => { audioControls.classList.remove('hidden'); });
+                    typewriterEffect(responseP, responseText);
                 }
                 
                 aiSubmit.disabled = false;
@@ -436,36 +458,6 @@
             if(aiSubmit) aiSubmit.addEventListener('click', handleSubmission);
             if(aiPrompt){
                 aiPrompt.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSubmission(); });
-            }
-
-            if(readAloudBtn){
-                readAloudBtn.addEventListener('click', async () => {
-                    const responseP = aiResponseContainer.querySelector('p');
-                    if (!responseP || !responseP.textContent) return;
-                    const text = responseP.textContent;
-
-                    readAloudText.textContent = "Loading Audio...";
-                    readAloudBtn.disabled = true;
-
-                    const audioContent = await callGeminiTTS(text);
-                    
-                    readAloudText.textContent = "Read Aloud";
-                    readAloudBtn.disabled = false;
-
-                    if(audioContent){
-                        const audioBlob = new Blob([Uint8Array.from(atob(audioContent), c => c.charCodeAt(0))], { type: 'audio/mpeg' });
-                        const audioUrl = URL.createObjectURL(audioBlob);
-                        currentAudio = new Audio(audioUrl);
-                        currentAudio.play();
-                        currentAudio.onended = () => { readAloudText.textContent = "Read Aloud"; };
-                        currentAudio.onplaying = () => { readAloudText.textContent = "Playing..."; };
-                    } else {
-                         const errorP = document.createElement('p');
-                         errorP.className = "text-red-400 text-sm mt-2";
-                         errorP.textContent = "Could not load audio.";
-                         aiResponseContainer.appendChild(errorP);
-                    }
-                });
             }
 
             // --- Smooth Scroll & Mobile Menu ---
@@ -500,3 +492,4 @@
 
 </body>
 </html>
+
