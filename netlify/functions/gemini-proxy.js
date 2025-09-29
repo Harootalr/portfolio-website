@@ -11,14 +11,14 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body || "{}"); } catch { return { statusCode: 400, body: '{"error":"Invalid JSON"}' }; }
 
   const model = (body.model || "gemini-2.5-flash").replace(/^models\//, "");
-  const url = `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${apiKey}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
   const contents = body.contents || [{ role: "user", parts: [{ text: body.prompt ?? "Hello" }] }];
 
   const requestBody = { contents };
 
   if (body.systemInstruction) {
-    requestBody.system_instruction = body.systemInstruction;
+    requestBody.systemInstruction = body.systemInstruction;
   }
 
   try {
