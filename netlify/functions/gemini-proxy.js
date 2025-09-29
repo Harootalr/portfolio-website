@@ -18,7 +18,7 @@ exports.handler = async (event) => {
   const requestBody = { contents };
 
   if (body.systemInstruction) {
-    requestBody.systemInstruction = body.systemInstruction;
+    requestBody.system_instruction = body.systemInstruction;
   }
 
   try {
