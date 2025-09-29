@@ -361,11 +361,12 @@
             const callGeminiTTS = async (textToSpeak) => {
                 const apiUrl = '/.netlify/functions/gemini-proxy-tts';
 
-                const payload = {
-                    input: { text: textToSpeak },
-                    voice: { languageCode: "en-US", name: "en-US-Standard-C" },
-                    audioConfig: { audioEncoding: "MP3" }
-                };
+               const payload = {
+    contents: [{ parts: [{ text: fullPrompt }] }],
+    systemInstruction: {
+        parts: [{ text: systemPrompt }]
+    },
+};
 
                 try {
                     const response = await fetch(apiUrl, {
