@@ -11,7 +11,7 @@ exports.handler = async (event) => {
 
     // Use a model that exists on v1beta
     const url =
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
+      `const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-002:generateContent?key=${process.env.GEMINI_API_KEY}`;}`;
 
     const resp = await fetchFn(url, {
       method: "POST",
