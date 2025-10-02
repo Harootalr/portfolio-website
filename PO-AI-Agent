@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: PO Virtual AI Agent | Haroot Al Rashed</title>
+    <meta name="description" content="A case study on the design of a comprehensive workflow for a Purchase Order AI agent to manage logistics operations, leveraging the Microsoft Multi-Agent Solution Accelerator.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A; /* slate-900 */
+            color: #94A3B8; /* slate-400 */
+        }
+        .prose-lg a {
+            color: #38BDF8; /* cyan-400 */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .prose-lg a:hover {
+            color: #7DD3FC; /* cyan-300 */
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Header -->
+    <header class="bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50 border-b border-slate-800">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-black text-white tracking-wider">
+                <a href="index.html">HAR</a>
+            </div>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="index.html#about" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300">About</a>
+                <a href="index.html#featured-project" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300">Featured Project</a>
+                <a href="index.html#projects" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300">More Projects</a>
+                <a href="index.html#skills" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300">Skills</a>
+                <a href="index.html#contact" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300">Contact</a>
+            </nav>
+            <div class="md:hidden">
+                 <button id="mobile-menu-button" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 max-w-4xl py-16 md:py-24">
+        
+        <!-- Project Header -->
+        <div class="text-center border-b border-slate-700 pb-12 mb-12">
+            <h1 class="text-4xl md:text-5xl font-black text-white mb-4">
+                Case Study: PO Virtual AI Agent
+            </h1>
+            <h2 class="text-xl md:text-2xl font-bold text-cyan-400">Workflow Design for Logistics Operations</h2>
+        </div>
+
+        <!-- Project Content -->
+        <article class="prose prose-invert prose-lg max-w-none">
+            <h2 class="text-white">Project Overview</h2>
+            <p>This project involved designing a comprehensive conceptual workflow for a Purchase Order (PO) AI agent. The objective was to architect an AI-driven system capable of autonomously managing the entire lifecycle of inbound and outbound logistics operations. The design leverages the powerful capabilities of the **Microsoft Multi-Agent Custom Automation Engine Solution Accelerator**, ensuring the proposed solution is grounded in a scalable, enterprise-grade framework.</p>
+
+            <h2 class="text-white">Technical Foundation</h2>
+            <p>The entire workflow was designed based on the capabilities of Microsoft's advanced solution accelerator for multi-agent systems. This framework uses a team of specialized AI agents, powered by Azure OpenAI, that collaborate to solve complex business problems. Instead of a single AI trying to do everything, this model delegates tasks to specific agents, such as a "Carrier Management Agent" or a "Shipment Tracking Agent," for greater efficiency and accuracy.</p>
+            
+            <div class="bg-slate-800/50 border border-slate-700 rounded-2xl p-6 my-8 backdrop-blur-sm not-prose">
+                <div class="flex items-center gap-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16" fill="currentColor" class="text-white flex-shrink-0"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                    <div>
+                        <h3 class="text-cyan-400 !mt-0 !mb-1 text-lg font-bold">Technology Framework</h3>
+                        <p class="!mb-0 text-slate-300">This project's design is based on the Microsoft Multi-Agent Solution Accelerator. You can explore the technical architecture on GitHub.</p>
+                        <a href="https://github.com/microsoft/Multi-Agent-Custom-Automation-Engine-Solution-Accelerator" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 font-semibold mt-1 inline-block">View on GitHub &rarr;</a>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-white">Key Responsibilities & Workflow Design</h2>
+            <ul>
+                <li>Analyzed and mapped the current state of manual Purchase Order processing to identify bottlenecks and opportunities for AI intervention.</li>
+                <li>Designed the future-state workflow, architecting how different AI agents would collaborate to manage the PO lifecycle.</li>
+                <li>Defined the logic and data flow for critical sub-processes, including carrier selection, packaging instruction generation, and real-time shipment status updates via API integration.</li>
+                <li>Created detailed user interaction flowcharts to ensure a seamless and intuitive "human-in-the-loop" experience for operators overseeing the AI agents.</li>
+            </ul>
+
+             <a href="index.html#projects" class="inline-block mt-12 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 no-underline">
+                &larr; Back to All Projects
+            </a>
+        </article>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 mt-16">
+        <div class="container mx-auto px-6 py-6 text-center text-slate-500">
+            <p>&copy; 2025 Haroot Al Rashed. All rights reserved.</p>
+        </div>
+    </footer>
+    
+</body>
+</html>
+
