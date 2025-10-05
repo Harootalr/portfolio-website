@@ -1,57 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haroot Al Rasheed - Presentation</title>
+    <title>Haroot Al Rashed | Interview Presentation</title>
+    <meta name="description" content="An interview presentation showcasing the Multi-Agent Custom Automation Engine project by Haroot Al Rashed.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #0F172A; /* slate-900 */
+            color: #94A3B8; /* slate-400 */
+        }
+        .font-mono {
+            font-family: 'Roboto Mono', monospace;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white antialiased">
+<body class="overflow-x-hidden">
 
-    <div class="container mx-auto px-4 py-12 md:py-20">
-
-        <header class="text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-bold text-teal-400">Interview Presentation</h1>
-            <p class="mt-3 text-lg text-gray-400">A showcase of the Multi-Agent Custom Automation Engine.</p>
+    <div id="content" class="flex flex-col min-h-screen">
+        <header class="bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50 border-b border-slate-800">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="text-2xl font-black text-white tracking-wider">
+                    <a href="/index.html">HAR</a>
+                </div>
+                <nav>
+                    <a href="/index.html" class="text-slate-300 hover:text-green-300 transition-colors duration-300 font-mono text-sm">
+                        &larr; Back to Portfolio
+                    </a>
+                </nav>
+            </div>
         </header>
 
-        <main>
+        <main class="container mx-auto px-6 md:px-24 lg:px-48 py-20">
+            
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-black text-slate-200 mb-3">Interview Presentation</h1>
+                <p class="max-w-2xl mx-auto text-lg text-slate-400">A showcase of the Multi-Agent Custom Automation Engine project built for Volvo Cars.</p>
+            </div>
+
             <!-- Figma Embed Container -->
-            <div class="bg-gray-800 p-2 md:p-4 rounded-xl shadow-2xl border border-gray-700">
+            <div class="bg-slate-800/50 p-2 md:p-4 rounded-xl shadow-2xl border border-slate-700">
                 <!-- 
                   INSTRUCTIONS:
                   1. In Figma, click "Share" -> "< > Get embed code".
                   2. Copy the <iframe> code.
-                  3. Paste that code below, replacing the placeholder comment.
+                  3. Paste that code below, replacing this entire comment block.
                 -->
-                
-                <!-- PASTE YOUR FIGMA IFRAME EMBED CODE HERE -->
-                <!-- Example of what it will look like:
-                <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="100%" height="600" src="https://www.figma.com/embed?embed_host=share&url=..." allowfullscreen></iframe> 
-                -->
-
-                <!-- For now, here is a placeholder. Replace it. -->
-                 <div class="w-full aspect-video bg-gray-700 rounded-lg flex items-center justify-center">
-                    <p class="text-gray-400">Paste your Figma Embed Code here.</p>
-                 </div>
-                 
+                <iframe style="border: 0;" width="100%" height="650" src="https://www.figma.com/embed?embed_host=share&url=YOUR_FIGMA_PROTOTYPE_URL_HERE" allowfullscreen></iframe>
             </div>
-             <p class="text-center mt-6 text-gray-500">
+            <p class="text-center mt-6 text-slate-500 text-sm">
                 Tip: Use the fullscreen option in the Figma embed for the best viewing experience.
             </p>
+
         </main>
 
-        <footer class="text-center mt-12 text-gray-600">
-            <p>&copy; 2025 Haroot Al Rasheed</p>
+        <footer class="py-6 text-center text-slate-500 font-mono text-sm mt-auto">
+            <p>© 2025 Haroot Al Rashed. All rights reserved.</p>
         </footer>
-
     </div>
-
 </body>
 </html>
+
