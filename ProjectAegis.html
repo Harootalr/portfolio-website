@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Aegis: A Strategic Plan for Client Acquisition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            background-color: #0A2342;
+            color: #F0F4F8;
+        }
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5vw;
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+        .slide-content {
+            width: 100%;
+            max-width: 1200px;
+        }
+        .footer {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            right: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: #F0F4F8;
+            opacity: 0.7;
+        }
+        .nav-button {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(44, 165, 141, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: rgba(44, 165, 141, 0.8);
+        }
+        #prevBtn { left: 20px; }
+        #nextBtn { right: 20px; }
+        .gemini-input, .gemini-textarea {
+            background-color: #1e3a5f;
+            border: 1px solid #3b5a82;
+            color: #F0F4F8;
+        }
+        .gemini-button {
+            background-color: #2CA58D;
+            transition: background-color 0.3s;
+        }
+        .gemini-button:hover {
+            background-color: #248a74;
+        }
+        .gemini-button-secondary {
+            background-color: transparent;
+            border: 1px solid #2CA58D;
+            color: #2CA58D;
+        }
+        .gemini-button-secondary:hover {
+            background-color: rgba(44, 165, 141, 0.1);
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2CA58D;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SLIDES CONTAINER -->
+    <div id="presentation-container">
+
+        <!-- Slide 1: Title -->
+        <div id="slide1" class="slide active">
+            <div class="slide-content text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">Project Aegis</h1>
+                <h2 class="text-xl md:text-3xl font-light text-gray-300">A Strategic Plan for Client Acquisition</h2>
+                <p class="mt-8 text-lg text-[#2CA58D]">Winning Setterwalls by Transforming Their AI Investment into a Competitive Advantage</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: The Opportunity -->
+        <div id="slide2" class="slide">
+            <div class="slide-content text-center">
+                <h1 class="text-3xl md:text-5xl font-bold text-white mb-12">The Opportunity: A Tier-1 Firm with Untapped Potential</h1>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="text-left space-y-6 text-lg">
+                        <p><strong class="text-[#2CA58D]">Premier Client:</strong> Setterwalls is a high-value, long-term client we are perfectly positioned to serve.</p>
+                        <p><strong class="text-[#2CA58D]">Insider Intelligence:</strong> They use Harvey AI inefficiently for basic tasks—a clear pain point we can solve.</p>
+                        <p><strong class="text-[#2CA58D]">Our Strategic Angle:</strong> We become the partner who unlocks the ROI on their existing AI investment, providing an immediate and compelling value proposition.</p>
+                    </div>
+                    <div class="flex justify-center">
+                        <svg class="w-48 h-48 text-[#2CA58D]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.6695 16.6695L21 21M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 7V11L13.5 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: The Solution -->
+        <div id="slide3" class="slide">
+            <div class="slide-content text-center">
+                <h1 class="text-3xl md:text-5xl font-bold text-white mb-12">Our Solution: The Intelligent Automation Layer</h1>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <!-- Before -->
+                    <div>
+                        <h2 class="text-2xl font-semibold text-gray-400 mb-4">Current State: Siloed Systems</h2>
+                        <div class="space-y-4">
+                            <div class="bg-gray-700 p-4 rounded-lg border-2 border-dashed border-gray-500">Practice Mgmt</div>
+                            <div class="bg-gray-700 p-4 rounded-lg border-2 border-dashed border-gray-500">Document System</div>
+                            <div class="bg-gray-700 p-4 rounded-lg border-2 border-dashed border-gray-500">Harvey AI</div>
+                        </div>
+                    </div>
+                    <!-- After -->
+                    <div>
+                        <h2 class="text-2xl font-semibold text-[#2CA58D] mb-4">Future State: Integrated Ecosystem</h2>
+                        <div class="relative bg-[#0A2342] p-6 rounded-lg border-2 border-[#2CA58D]">
+                             <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-40 h-40 bg-[#2CA58D]/20 rounded-full animate-ping"></div>
+                            </div>
+                            <div class="relative z-10 font-bold text-white bg-[#0A2342] inline-block p-4 rounded-lg border border-[#2CA58D]">automated<span class="text-[#2CA58D]">.se</span> Platform</div>
+                            <div class="absolute top-1/2 left-[-30px] w-8 h-0.5 bg-[#2CA58D]"></div>
+                            <div class="absolute top-1/4 right-[-30px] w-8 h-0.5 bg-[#2CA58D]"></div>
+                            <div class="absolute bottom-1/4 right-[-30px] w-8 h-0.5 bg-[#2CA58D]"></div>
+                        </div>
+                        <div class="text-left mt-[-20px] ml-[calc(50%+40px)] space-y-4">
+                            <p class="text-sm">Practice Mgmt</p>
+                            <p class="text-sm">Document System</p>
+                            <p class="text-sm">Harvey AI</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Phase 1 -->
+        <div id="slide4" class="slide">
+            <div class="slide-content text-center">
+                <h1 class="text-3xl md:text-5xl font-bold text-white mb-12">Phase 1: Quick Wins to Build Trust (Months 1-3)</h1>
+                <div class="grid md:grid-cols-2 gap-8 text-left">
+                    <div class="bg-[#0A2342] p-6 rounded-lg border border-gray-700 hover:border-[#2CA58D] transition-all">
+                        <h2 class="text-xl font-bold text-[#2CA58D] mb-2">Automated Client Intake</h2>
+                        <p class="text-gray-300">Reduces onboarding from hours to minutes, eliminating errors and accelerating the start of billable work.</p>
+                    </div>
+                    <div class="bg-[#0A2342] p-6 rounded-lg border border-gray-700 hover:border-[#2CA58D] transition-all">
+                        <h2 class="text-xl font-bold text-[#2CA58D] mb-2">Smart Document Assembly</h2>
+                        <p class="text-gray-300">Generates complex, compliant NDAs and contracts from a simple form, saving dozens of lawyer hours.</p>
+                    </div>
+                </div>
+                <p class="mt-12 text-lg text-gray-400 italic"><strong>How we deliver:</strong> Rapid deployment using a secure, on-premise n8n instance to meet strict confidentiality requirements.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 5: GEMINI API LIVE DEMO 1 -->
+        <div id="slide5" class="slide">
+            <div class="slide-content">
+                <h1 class="text-3xl md:text-5xl font-bold text-white mb-4 text-center">Live Demo: Intelligent Document Assembly</h1>
+                <p class="text-center text-gray-300 mb-10">A glimpse into how we augment legal drafting with Generative AI.</p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Input Panel -->
+                    <div class="space-y-6">
+                        <div>
+                            <label for="clientName" class="block text-sm font-medium text-gray-300 mb-2">Client Name</label>
+                            <input type="text" id="clientName" class="w-full p-2 rounded-md gemini-input" value="Innovate Corp">
+                        </div>
+                        <div>
+                            <label for="agreementType" class="block text-sm font-medium text-gray-300 mb-2">Agreement Type</label>
+                            <select id="agreementType" class="w-full p-2 rounded-md gemini-input">
+                                <option>Non-Disclosure Agreement</option>
+                                <option>Service Agreement</option>
+                                <option>Employment Contract</option>
+                            </select>
+                        </div>
+                        <button id="generateBtn" class="w-full py-3 px-4 rounded-md text-white font-semibold gemini-button">
+                            ✨ Generate Sample Clause
+                        </button>
+                    </div>
+                    <!-- Output Panel -->
+                    <div id="outputContainer" class="bg-[#061a33] p-4 rounded-lg border border-gray-700 h-64 flex items-center justify-center overflow-y-auto">
+                        <p class="text-gray-400">Generated clause will appear here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Phase 2 -->
+        <div id="slide6" class="slide">
+            <div class="slide-content text-center">
+                <h1 class="text-3xl md:text-5xl font-bold text-white mb-12">Phase 2: Augmenting Core Legal Workflows (Months 3-9)</h1>
+                <div class="bg-[#0A2342] p-8 rounded-lg border border-gray-700 text-left max-w-3xl mx-auto">
+                    <h2 class="text-2xl font-bold text-[#2CA58D] mb-4">The Due Diligence Assistant</h2>
+                    <p class="text-gray-300 text-lg">We build a workflow that ingests documents from data rooms, flags risks, and <strong class="text-white">automatically sends critical files to Harvey AI for a first-pass summary.</strong> This presents lawyers with a prioritized, intelligent list for review, transforming a tedious task into a strategic analysis.</p>
+                </div>
+                <p class="mt-12 text-lg text-gray-400 italic"><strong>How we deliver:</strong> Our deep expertise in API integration securely connects their systems to Harvey AI, finally unlocking its true potential.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 7: GEMINI API LIVE DEMO 2 -->
+        <div id="slide7" class="slide">
+            <div class="slide-content">
+                <h1 class="text-3xl md:text-5xl font-bold text-white mb-4 text-center">Live Demo: AI-Powered Document Analysis</h1>
+                <p class="text-center text-gray-300 mb-6">Demonstrating how AI accelerates due diligence and contract review.</p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Input Text Area -->
+                    <div>
+                         <textarea id="legalText" class="w-full h-80 p-3 rounded-md gemini-textarea text-sm">This Agreement is made effective as of October 5, 2025, between Innovate Corp ("Disclosing Party"), and Solutions AB ("Receiving Party"). The Disclosing Party may provide the Receiving Party with certain confidential and proprietary information. For a period of five (5) years from the date of disclosure, the Receiving Party shall not use the Confidential Information for any purpose other than to evaluate a potential business relationship. The Receiving Party shall not disclose the Confidential Information to any third party without the prior written consent of the Disclosing Party. The obligations of confidentiality shall not apply to any information that is publicly known or becomes publicly known through no fault of the Receiving Party. This Agreement shall be governed by the laws of Sweden.</textarea>
+                    </div>
+                    <!-- Controls and Output -->
+                    <div class="flex flex-col">
+                        <div class="grid grid-cols-3 gap-2 mb-4">
+                            <button class="analysis-btn py-2 px-3 rounded-md text-sm font-semibold gemini-button" data-task="summarize">✨ Summarize</button>
+                            <button class="analysis-btn py-2 px-3 rounded-md text-sm font-semibold gemini-button-secondary" data-task="risks">✨ Identify Risks</button>
+                            <button class="analysis-btn py-2 px-3 rounded-md text-sm font-semibold gemini-button-secondary" data-task="extract">✨ Extract Data</button>
+                        </div>
+                        <div id="analysisOutputContainer" class="bg-[#061a33] p-4 rounded-lg border border-gray-700 flex-grow flex items-center justify-center overflow-y-auto">
+                            <p class="text-gray-400">Analysis will appear here...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Phase 3 -->
+        <div id="slide8" class="slide">
+             <div class="slide-content text-center">
+                <h1 class="text-3xl md:text-5xl font-bold text-white mb-12">Phase 3: Becoming Their Strategic AI Partner (Months 9+)</h1>
+                <div class="bg-[#0A2342] p-8 rounded-lg border border-gray-700 text-left max-w-3xl mx-auto">
+                    <h2 class="text-2xl font-bold text-[#2CA58D] mb-4">Proactive Knowledge Management</h2>
+                    <p class="text-gray-300 text-lg">The ultimate goal: an internal, secure chatbot powered by their data and Harvey AI. Lawyers can ask natural language questions to find past cases, clauses, and internal experts instantly. This <strong class="text-white">turns the firm's history into a queryable, strategic asset.</strong></p>
+                </div>
+                <p class="mt-12 text-lg text-gray-400 italic"><strong>How we deliver:</strong> This solidifies our role as their long-term innovation partner, moving beyond automation to strategic advisory.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 9: GEMINI API LIVE DEMO 3 -->
+        <div id="slide9" class="slide">
+            <div class="slide-content">
+                <h1 class="text-3xl md:text-5xl font-bold text-white mb-4 text-center">Live Demo: The AI Knowledge Assistant</h1>
+                <p class="text-center text-gray-300 mb-10">Simulating how lawyers can query the firm's entire collective knowledge.</p>
+                <div class="max-w-4xl mx-auto">
+                    <div class="mb-4">
+                        <label for="knowledgeQuery" class="block text-sm font-medium text-gray-300 mb-2">Ask a question to the firm's AI:</label>
+                        <input type="text" id="knowledgeQuery" class="w-full p-3 rounded-md gemini-input text-lg" value="Who at the firm has experience with data privacy clauses for SaaS startups?">
+                    </div>
+                    <button id="knowledgeBtn" class="w-full py-3 px-4 rounded-md text-white font-semibold gemini-button">
+                        ✨ Ask the Firm's AI Assistant
+                    </button>
+                    <div id="knowledgeOutputContainer" class="bg-[#061a33] p-4 mt-6 rounded-lg border border-gray-700 h-48 flex items-center justify-center overflow-y-auto">
+                        <p class="text-gray-400">The synthesized answer will appear here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Why We Win -->
+        <div id="slide10" class="slide">
+            <div class="slide-content text-center">
+                <h1 class="text-3xl md:text-5xl font-bold text-white mb-12">Why automated<span class="text-[#2CA58D]">.se</span> Will Win</h1>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="p-6">
+                        <svg class="w-16 h-16 mx-auto mb-4 text-[#2CA58D]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 11V16M12 8H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <h2 class="text-xl font-bold">Security-First DNA</h2>
+                        <p class="text-gray-400 mt-2">Expertise in on-premise, secure deployments is a non-negotiable differentiator for a top law firm.</p>
+                    </div>
+                    <div class="p-6">
+                        <svg class="w-16 h-16 mx-auto mb-4 text-[#2CA58D]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 13L6 17M6 17L2 21M6 17L10 21M14 13L18 17M18 17L22 21M18 17L14 21M12 3L14.3271 7.91575C14.4849 8.25827 14.7876 8.51503 15.1528 8.58425L20.5 9.5L16.75 13.5L17.6542 19.0842L12 16.5L6.34583 19.0842L7.25 13.5L3.5 9.5L8.84718 8.58425C9.21239 8.51503 9.51512 8.25827 9.67292 7.91575L12 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <h2 class="text-xl font-bold">Expert Integrators</h2>
+                        <p class="text-gray-400 mt-2">We make *their* existing investments work better. We are neutral partners focused on their success.</p>
+                    </div>
+                    <div class="p-6">
+                        <svg class="w-16 h-16 mx-auto mb-4 text-[#2CA58D]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 17H17.01M17 13H17.01M13 13H13.01M13 17H13.01M13 9H13.01M9 13H9.01M9 17H9.01M9 9H9.01M9 5H9.01M5 9H5.01M5 13H5.01M5 17H5.01M3 21V3H21V21H3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <h2 class="text-xl font-bold">Proven Methodology</h2>
+                        <p class="text-gray-400 mt-2">Our low-risk, high-impact Discovery Workshop demonstrates immediate value and builds trust.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: The Engagement Plan -->
+        <div id="slide11" class="slide">
+            <div class="slide-content text-center">
+                <h1 class="text-3xl md:text-5xl font-bold text-white mb-16">Our Step-by-Step Engagement Plan</h1>
+                <div class="flex items-center justify-between w-full">
+                    <div class="w-full h-1 bg-gray-700 absolute"></div>
+                    <div class="w-full flex justify-between items-start relative">
+                        <div class="text-center w-1/5">
+                            <div class="mx-auto w-8 h-8 rounded-full bg-[#2CA58D] flex items-center justify-center text-white font-bold mb-2">1</div>
+                            <p>Finalize Proposal</p>
+                        </div>
+                        <div class="text-center w-1/5">
+                            <div class="mx-auto w-8 h-8 rounded-full bg-[#2CA58D] flex items-center justify-center text-white font-bold mb-2">2</div>
+                            <p>Warm Introduction</p>
+                        </div>
+                        <div class="text-center w-1/5">
+                            <div class="mx-auto w-8 h-8 rounded-full bg-[#2CA58D] flex items-center justify-center text-white font-bold mb-2">3</div>
+                            <p>Pitch Workshop</p>
+                        </div>
+                        <div class="text-center w-1/5">
+                            <div class="mx-auto w-8 h-8 rounded-full bg-[#2CA58D] flex items-center justify-center text-white font-bold mb-2">4</div>
+                            <p>Execute Workshop</p>
+                        </div>
+                        <div class="text-center w-1/5">
+                            <div class="mx-auto w-8 h-8 rounded-full bg-[#2CA58D] flex items-center justify-center text-white font-bold mb-2">5</div>
+                            <p>Co-Create SOW</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Resources & Next Steps -->
+        <div id="slide12" class="slide">
+            <div class="slide-content text-left max-w-3xl mx-auto">
+                <h1 class="text-3xl md:text-5xl font-bold text-white mb-12 text-center">Resources & Next Steps</h1>
+                <div class="space-y-8 text-lg">
+                    <div>
+                        <h2 class="text-2xl font-semibold text-[#2CA58D] mb-2">Requested Approval</h2>
+                        <ul class="list-disc list-inside text-gray-300 space-y-1">
+                            <li>Green light to pursue Setterwalls as a strategic target account.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-semibold text-[#2CA58D] mb-2">Resource Allocation</h2>
+                        <ul class="list-disc list-inside text-gray-300 space-y-1">
+                            <li><strong>15 pre-sales hours</strong> for proposal finalization and meeting prep.</li>
+                            <li><strong>2-person team</strong> assigned to prepare and execute the Discovery Workshop.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 13: Q&A -->
+        <div id="slide13" class="slide">
+            <div class="slide-content text-center">
+                 <h1 class="text-6xl font-bold text-white mb-6">Q&A</h1>
+                 <h2 class="text-3xl font-light text-gray-300">Thank You</h2>
+                 <p class="mt-8 text-lg text-[#2CA58D]">[Your Name] | [Your Email]</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- NAVIGATION AND FOOTER -->
+    <button id="prevBtn" class="nav-button">&lt;</button>
+    <button id="nextBtn" class="nav-button">&gt;</button>
+
+    <div class="footer">
+        <div>
+            <span class="font-bold">automated<span class="text-[#2CA58D]">.se</span></span>
+            <span class="mx-2">|</span>
+            <span>CONFIDENTIAL | Project Aegis</span>
+        </div>
+        <div id="slide-counter">1 / 13</div>
+    </div>
+
+    <script>
+        const apiKey = ""; // API key is handled by the execution environment.
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+        
+        // --- Gemini API Call Function ---
+        async function callGemini(prompt, outputElement) {
+            outputElement.innerHTML = '<div class="loader"></div>';
+
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }]
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API request failed with status ${response.status}`);
+                }
+
+                const result = await response.json();
+                const generatedText = result.candidates[0]?.content?.parts[0]?.text;
+
+                if (generatedText) {
+                    outputElement.innerHTML = `<pre class="text-sm text-left whitespace-pre-wrap">${generatedText.replace(/`/g, '')}</pre>`;
+                } else {
+                    throw new Error('No content received from API.');
+                }
+            } catch (error) {
+                console.error('Gemini API Error:', error);
+                outputElement.innerHTML = `<p class="text-red-400 text-sm">Error generating content. Please check the console.</p>`;
+            }
+        }
+        
+        // --- Gemini Demo 1: Clause Generation ---
+        const generateBtn = document.getElementById('generateBtn');
+        const outputContainer = document.getElementById('outputContainer');
+
+        generateBtn.addEventListener('click', () => {
+            const clientName = document.getElementById('clientName').value;
+            const agreementType = document.getElementById('agreementType').value;
+            const userPrompt = `You are a legal AI assistant. For a client named "${clientName}", draft a sample 'Confidentiality' clause for a standard "${agreementType}". The clause should be clear, concise, and suitable for a Swedish law firm's template. Do not include any preamble or signature blocks, only the clause text itself. Format the output in plain text.`;
+            callGemini(userPrompt, outputContainer);
+        });
+
+        // --- Gemini Demo 2: Document Analysis ---
+        const analysisBtns = document.querySelectorAll('.analysis-btn');
+        const analysisOutputContainer = document.getElementById('analysisOutputContainer');
+        
+        const analysisPrompts = {
+            summarize: `You are a legal AI assistant. Summarize the following legal text into three concise bullet points, focusing on the main obligations and rights of the parties involved. TEXT: `,
+            risks: `You are a legal risk analysis AI. Review the following legal text and identify any potential risks, ambiguities, or non-standard clauses for a Swedish company. Present the findings as a bulleted list. If no significant risks are found, state that. TEXT: `,
+            extract: `You are a data extraction AI. From the following legal text, extract the key entities and dates. Present the result in a clean, readable format, not JSON. For example: "Parties: [Name1], [Name2]. Effective Date: [Date]". TEXT: `
+        };
+
+        analysisBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const task = btn.dataset.task;
+                const legalText = document.getElementById('legalText').value;
+                const userPrompt = analysisPrompts[task] + `"${legalText}"`;
+                callGemini(userPrompt, analysisOutputContainer);
+            });
+        });
+        
+        // --- Gemini Demo 3: Knowledge Assistant ---
+        const knowledgeBtn = document.getElementById('knowledgeBtn');
+        const knowledgeOutputContainer = document.getElementById('knowledgeOutputContainer');
+        
+        knowledgeBtn.addEventListener('click', () => {
+            const query = document.getElementById('knowledgeQuery').value;
+            const userPrompt = `You are an AI assistant for Setterwalls, a premier Swedish law firm. Your knowledge base consists of all the firm's historical (but anonymized) cases, documents, and expert profiles. Answer the following question from a lawyer by synthesizing information you would theoretically have access to. Provide a concise, actionable answer with specific examples or names where appropriate. Be professional and confident. QUESTION: "${query}"`;
+            callGemini(userPrompt, knowledgeOutputContainer);
+        });
+
+
+        // --- Presentation Navigation Logic ---
+        let currentSlide = 1;
+        const totalSlides = 13; // Updated to 13 slides
+        const slideCounter = document.getElementById('slide-counter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function showSlide(slideNumber) {
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+            });
+            const newSlide = document.getElementById(`slide${slideNumber}`);
+            if (newSlide) {
+                newSlide.classList.add('active');
+                slideCounter.textContent = `${slideNumber} / ${totalSlides}`;
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+        
+        // Initial setup
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
+
