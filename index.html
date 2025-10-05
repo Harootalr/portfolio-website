@@ -165,7 +165,7 @@
                     </div>
                 </div>
                 <div class="max-w-3xl mx-auto text-center mt-12">
-                    <h3 class="text-2xl font-bold text-white mb-4">Ask me anything - I am Haroot's personal agent</h3>
+                    <h3 class="text-2xl font-bold text-white mb-4">AI Logistics Sandbox</h3>
                     <div class="bg-slate-800/50 border border-slate-700 rounded-2xl p-6 sm:p-8 backdrop-blur-sm">
                         <div class="bg-slate-900/50 border border-slate-600/50 rounded-xl p-6 mb-6 min-h-[120px] relative overflow-hidden">
                             <div class="absolute top-3 left-4">
@@ -497,24 +497,20 @@
             ];
             
             const callGeminiAPI = async (userPrompt) => {
-                const fullPrompt = `
-                    Use the following knowledge base about me, Haroot Al Rashed, to answer the user's question from my perspective.
-                 Prioritize information from this knowledge base. If the answer is not found here, you may use your general knowledge, but you must maintain my professional persona.
-                    ---
-                    ${knowledgeBase}
-                    ---
-                    USER QUESTION: "${userPrompt}
-                `;
-               
+                // Build a concise user message and keep the knowledge base as a system-level context
+                // IMPORTANT: instruct the model to NOT repeat the knowledge base verbatim — only use it as reference
                 const apiUrl = '/api/gemini-proxy';
 
+                // Strong system instruction + KB context. Request strict JSON output.
+                const systemText = `${systemPrompt}\n\nKNOWLEDGE_BASE:\n${knowledgeBase}\n\nINSTRUCTIONS:\n- Use the knowledge base only as private context. Do NOT repeat, copy, or echo any part of the knowledge base in the response.\n- Provide your answer as a valid JSON object with exactly one field named "answer": {"answer":"..."}. Do NOT include any other top-level fields.\n- The value of "answer" should be a concise first-person response ("I ...").\n- If the answer is not present in the knowledge base, say so briefly and offer a suggested next step.\n- Do NOT include extra commentary, headings, or markdown. Output must be parseable JSON.`;
+
+                // The user message is the question only — the strictness is in the system instruction
+                const userMessage = `${userPrompt}`;
+
                 const payload = {
-                    contents: [
-                        { parts: [{ text: fullPrompt }] }
-                    ],
-                    systemInstruction: {
-                        parts: [{ text: systemPrompt }]
-                    }
+                    contents: [ { parts: [{ text: userMessage }] } ],
+                    systemInstruction: { parts: [{ text: systemText }] },
+                    temperature: 0.05
                 };
 
                 try {
@@ -529,7 +525,37 @@
                         throw new Error(`API ${response.status} ${response.statusText} ${errText}`);
                     }
                     const result = await response.json();
-                    return result.candidates?.[0]?.content?.parts?.[0]?.text || "I'm sorry, I couldn't generate a response at this time.";
+                    // prefer the candidate text; trim leading/trailing KB echoes if any
+                    const raw = result.candidates?.[0]?.content?.parts?.[0]?.text || null;
+                    if (!raw) return "I'm sorry, I couldn't generate a response at this time.";
+
+                    // Try to parse the model output as JSON first
+                    let parsed = null;
+                    try {
+                        parsed = JSON.parse(raw);
+                    } catch (e) {
+                        // fallback: try to extract the first JSON object substring
+                        const jsonMatch = raw.match(/\{[\s\S]*?\}/);
+                        if (jsonMatch) {
+                            try { parsed = JSON.parse(jsonMatch[0]); } catch (e2) { parsed = null; }
+                        }
+                    }
+
+                    if (parsed && typeof parsed === 'object') {
+                        if (parsed.answer && typeof parsed.answer === 'string') {
+                            return parsed.answer.trim();
+                        }
+                        // if parsed JSON doesn't have 'answer', but has text-like fields, try common keys
+                        const alt = parsed.answer_text || parsed.response || parsed.result;
+                        if (alt && typeof alt === 'string') return alt.trim();
+                    }
+
+                    // As a last resort, attempt to remove obvious KB echoes (best-effort) then return the remaining text
+                    let cleaned = raw.replace(/KNOWLEDGE_BASE:\s*/g, '').trim();
+                    if (knowledgeBase && cleaned.includes(knowledgeBase)) cleaned = cleaned.split(knowledgeBase).join('').trim();
+                    // If cleaned still looks like JSON string wrapper, try to strip enclosing markdown or code fences
+                    cleaned = cleaned.replace(/^```\w*\n?|```$/g, '').trim();
+                    return cleaned;
 
                 } catch (error) {
                     console.error("Error calling Gemini API:", error);
