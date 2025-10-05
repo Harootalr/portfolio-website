@@ -84,6 +84,11 @@
         .gemini-button:hover {
             background-color: #248a74;
         }
+        .gemini-button:disabled {
+            background-color: #2CA58D;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
         .gemini-button-secondary {
             background-color: transparent;
             border: 1px solid #2CA58D;
@@ -91,6 +96,10 @@
         }
         .gemini-button-secondary:hover {
             background-color: rgba(44, 165, 141, 0.1);
+        }
+        .gemini-button-secondary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
         .loader {
             border: 4px solid #f3f3f3;
@@ -212,7 +221,7 @@
                             </select>
                         </div>
                         <button id="generateBtn" class="w-full py-3 px-4 rounded-md text-white font-semibold gemini-button">
-                            ✨ Generate Sample Clause
+                            Generate Sample Clause
                         </button>
                     </div>
                     <!-- Output Panel -->
@@ -248,9 +257,9 @@
                     <!-- Controls and Output -->
                     <div class="flex flex-col">
                         <div class="grid grid-cols-3 gap-2 mb-4">
-                            <button class="analysis-btn py-2 px-3 rounded-md text-sm font-semibold gemini-button" data-task="summarize">✨ Summarize</button>
-                            <button class="analysis-btn py-2 px-3 rounded-md text-sm font-semibold gemini-button-secondary" data-task="risks">✨ Identify Risks</button>
-                            <button class="analysis-btn py-2 px-3 rounded-md text-sm font-semibold gemini-button-secondary" data-task="extract">✨ Extract Data</button>
+                            <button class="analysis-btn py-2 px-3 rounded-md text-sm font-semibold gemini-button" data-task="summarize">Summarize</button>
+                            <button class="analysis-btn py-2 px-3 rounded-md text-sm font-semibold gemini-button-secondary" data-task="risks">Identify Risks</button>
+                            <button class="analysis-btn py-2 px-3 rounded-md text-sm font-semibold gemini-button-secondary" data-task="extract">Extract Data</button>
                         </div>
                         <div id="analysisOutputContainer" class="bg-[#061a33] p-4 rounded-lg border border-gray-700 flex-grow flex items-center justify-center overflow-y-auto">
                             <p class="text-gray-400">Analysis will appear here...</p>
@@ -283,7 +292,7 @@
                         <input type="text" id="knowledgeQuery" class="w-full p-3 rounded-md gemini-input text-lg" value="Who at the firm has experience with data privacy clauses for SaaS startups?">
                     </div>
                     <button id="knowledgeBtn" class="w-full py-3 px-4 rounded-md text-white font-semibold gemini-button">
-                        ✨ Ask the Firm's AI Assistant
+                        Ask the Firm's AI Assistant
                     </button>
                     <div id="knowledgeOutputContainer" class="bg-[#061a33] p-4 mt-6 rounded-lg border border-gray-700 h-48 flex items-center justify-center overflow-y-auto">
                         <p class="text-gray-400">The synthesized answer will appear here...</p>
@@ -369,15 +378,6 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Slide 13: Q&A -->
-        <div id="slide13" class="slide">
-            <div class="slide-content text-center">
-                 <h1 class="text-6xl font-bold text-white mb-6">Q&A</h1>
-                 <h2 class="text-3xl font-light text-gray-300">Thank You</h2>
-                 <p class="mt-8 text-lg text-[#2CA58D]">[Your Name] | [Your Email]</p>
-            </div>
-        </div>
 
     </div>
 
@@ -391,15 +391,19 @@
             <span class="mx-2">|</span>
             <span>CONFIDENTIAL | Project Aegis</span>
         </div>
-        <div id="slide-counter">1 / 13</div>
+        <div id="slide-counter">1 / 12</div>
     </div>
 
     <script>
-        const apiKey = ""; // API key is handled by the execution environment.
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+        // --- FIX START: Use a proxy for API calls to protect the API key ---
+        const apiUrl = '/api/gemini-proxy'; // This is a relative path to a proxy on the same server.
         
-        // --- Gemini API Call Function ---
-        async function callGemini(prompt, outputElement) {
+        async function callGemini(prompt, outputElement, triggerButton) {
+            // No API key needed in the browser anymore.
+            // --- FIX END ---
+            
+            triggerButton.disabled = true;
+            triggerButton.classList.add('opacity-50', 'cursor-not-allowed');
             outputElement.innerHTML = '<div class="loader"></div>';
 
             const payload = {
@@ -414,7 +418,8 @@
                 });
 
                 if (!response.ok) {
-                    throw new Error(`API request failed with status ${response.status}`);
+                    const errorText = await response.text();
+                    throw new Error(`API request failed with status ${response.status}: ${errorText}`);
                 }
 
                 const result = await response.json();
@@ -427,7 +432,10 @@
                 }
             } catch (error) {
                 console.error('Gemini API Error:', error);
-                outputElement.innerHTML = `<p class="text-red-400 text-sm">Error generating content. Please check the console.</p>`;
+                outputElement.innerHTML = `<p class="text-red-400 text-sm">Error generating content. The proxy server may be down or misconfigured. Check console.</p>`;
+            } finally {
+                triggerButton.disabled = false;
+                triggerButton.classList.remove('opacity-50', 'cursor-not-allowed');
             }
         }
         
@@ -439,7 +447,7 @@
             const clientName = document.getElementById('clientName').value;
             const agreementType = document.getElementById('agreementType').value;
             const userPrompt = `You are a legal AI assistant. For a client named "${clientName}", draft a sample 'Confidentiality' clause for a standard "${agreementType}". The clause should be clear, concise, and suitable for a Swedish law firm's template. Do not include any preamble or signature blocks, only the clause text itself. Format the output in plain text.`;
-            callGemini(userPrompt, outputContainer);
+            callGemini(userPrompt, outputContainer, generateBtn);
         });
 
         // --- Gemini Demo 2: Document Analysis ---
@@ -453,11 +461,12 @@
         };
 
         analysisBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const task = btn.dataset.task;
+            btn.addEventListener('click', (event) => {
+                const triggerButton = event.target;
+                const task = triggerButton.dataset.task;
                 const legalText = document.getElementById('legalText').value;
                 const userPrompt = analysisPrompts[task] + `"${legalText}"`;
-                callGemini(userPrompt, analysisOutputContainer);
+                callGemini(userPrompt, analysisOutputContainer, triggerButton);
             });
         });
         
@@ -468,13 +477,13 @@
         knowledgeBtn.addEventListener('click', () => {
             const query = document.getElementById('knowledgeQuery').value;
             const userPrompt = `You are an AI assistant for Setterwalls, a premier Swedish law firm. Your knowledge base consists of all the firm's historical (but anonymized) cases, documents, and expert profiles. Answer the following question from a lawyer by synthesizing information you would theoretically have access to. Provide a concise, actionable answer with specific examples or names where appropriate. Be professional and confident. QUESTION: "${query}"`;
-            callGemini(userPrompt, knowledgeOutputContainer);
+            callGemini(userPrompt, knowledgeOutputContainer, knowledgeBtn);
         });
 
 
         // --- Presentation Navigation Logic ---
         let currentSlide = 1;
-        const totalSlides = 13; // Updated to 13 slides
+        const totalSlides = 12; // Updated to 12 slides
         const slideCounter = document.getElementById('slide-counter');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
@@ -520,3 +529,4 @@
     </script>
 </body>
 </html>
+
