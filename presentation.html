@@ -18,6 +18,16 @@
         .font-mono {
             font-family: 'Roboto Mono', monospace;
         }
+        /* Custom styles for the video player based on your component */
+        .video-container.paused .play-button-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+        .play-button-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+        }
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -44,7 +54,6 @@
                 <p class="max-w-2xl mx-auto text-lg text-slate-400">An interactive presentation showcasing the Multi-Agent Custom Automation Engine project.</p>
             </div>
             <div class="bg-slate-800/50 p-2 md:p-4 rounded-xl shadow-2xl border border-slate-700 max-w-6xl mx-auto">
-                <!-- Figma Site Embed -->
                 <iframe style="border: none; aspect-ratio: 16/9;" width="100%" src="https://tiger-churn-29824089.figma.site" allowfullscreen></iframe>
             </div>
              <p class="text-center mt-6 text-slate-500 text-sm">
@@ -57,10 +66,36 @@
                 <p class="max-w-2xl mx-auto text-lg text-slate-400">A walkthrough of the system in action.</p>
             </div>
             <div class="bg-slate-800/50 p-2 md:p-4 rounded-xl shadow-2xl border border-slate-700 max-w-6xl mx-auto">
-                <!-- Google Drive Video Embed -->
-                <iframe src="https://drive.google.com/file/d/1pAl962VY2LKXQu3ZO7R9DGVV_5-jEhgR/preview" width="100%" height="520" allow="autoplay" allowfullscreen style="border: none;"></iframe>
-            </div>
+                
+                <!-- Custom Video Player Container -->
+                <div id="videoContainer" class="relative group video-container paused">
+                    <video
+                        id="demoVideo"
+                        class="w-full aspect-video object-contain bg-slate-900 rounded-lg"
+                        controls
+                        poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect fill='%230F172A' width='100' height='100'/%3E%3Ctext x='50' y='50' font-family='monospace' font-size='12' fill='%2334D399' text-anchor='middle' dominant-baseline='middle'%3EVideo Demo%3C/text%3E%3C/svg%3E"
+                    >
+                        <!-- 
+                            IMPORTANT NOTE: 
+                            The Google Drive link will NOT work here. To use this custom player, you must have a direct link to the video file (ending in .mp4, .webm, etc.). 
+                            You can get a direct link by uploading the video to your GitHub repository or using a service like Cloudinary.
+                            For now, I've left the iframe as a fallback.
+                        -->
+                        <!-- <source src="YOUR_DIRECT_VIDEO_URL_HERE.mp4" type="video/mp4" /> -->
+                        Your browser does not support the video tag.
+                    </video>
+                    
+                    <!-- Fallback using iFrame if you don't have a direct video link -->
+                    <iframe src="https://drive.google.com/file/d/1pAl962VY2LKXQu3ZO7R9DGVV_5-jEhgR/preview" width="100%" height="520" allow="autoplay" allowfullscreen style="border: none; border-radius: 8px;"></iframe>
 
+                    <!-- Custom Play Button Overlay -->
+                    <div id="playButtonOverlay" class="play-button-overlay absolute inset-0 flex items-center justify-center bg-slate-900/50 cursor-pointer group-hover:bg-slate-900/40 transition-colors">
+                        <div class="w-20 h-20 rounded-full bg-emerald-400/90 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg class="w-10 h-10 text-slate-900 ml-1" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <footer class="py-6 text-center text-slate-500 font-mono text-sm mt-auto">
@@ -68,6 +103,36 @@
         </footer>
     </div>
 
-</body> 
-</html>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoContainer = document.getElementById('videoContainer');
+            const video = document.getElementById('demoVideo');
+            const playButtonOverlay = document.getElementById('playButtonOverlay');
 
+            // This custom player logic will only work if you use the <video> tag with a direct URL.
+            // It will be ignored when using the <iframe> fallback.
+            if (video && playButtonOverlay && videoContainer) {
+                const togglePlay = () => {
+                    if (video.paused || video.ended) {
+                        video.play();
+                    } else {
+                        video.pause();
+                    }
+                };
+
+                playButtonOverlay.addEventListener('click', togglePlay);
+
+                video.addEventListener('play', () => {
+                    videoContainer.classList.remove('paused');
+                });
+
+                video.addEventListener('pause', () => {
+                    videoContainer.classList.add('paused');
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
+ 
