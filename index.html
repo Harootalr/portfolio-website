@@ -107,174 +107,136 @@
     }
     /* --- FIX END --- */
     
-    /* --- Animated Workflow Diagram --- */
-    .workflow-container {
+    /* --- Clean Automation Pipeline --- */
+    .automation-pipeline {
         position: relative;
         width: 100%;
-        height: 400px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        max-width: 600px;
+        margin: 0 auto;
     }
     
-    .workflow-node {
-        position: absolute;
+    .pipeline-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        opacity: 0;
+        animation: slideUp 0.6s ease forwards;
+    }
+    
+    .pipeline-step:nth-child(1) { animation-delay: 0.2s; }
+    .pipeline-step:nth-child(2) { animation-delay: 0.4s; }
+    .pipeline-step:nth-child(3) { animation-delay: 0.6s; }
+    .pipeline-step:nth-child(4) { animation-delay: 0.8s; }
+    
+    .step-icon {
+        width: 80px;
+        height: 80px;
         background: rgba(16, 185, 129, 0.1);
         border: 2px solid #10b981;
-        border-radius: 12px;
-        padding: 16px 20px;
-        color: #10b981;
-        font-size: 14px;
-        font-weight: 600;
-        opacity: 0;
-        animation: fadeInScale 0.6s ease forwards;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15);
-    }
-    
-    .workflow-node.ai {
-        top: 20%;
-        left: 10%;
-        animation-delay: 0.2s;
-    }
-    
-    .workflow-node.data {
-        top: 20%;
-        right: 10%;
-        animation-delay: 0.4s;
-    }
-    
-    .workflow-node.process {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: rgba(16, 185, 129, 0.15);
-        font-size: 16px;
-        animation-delay: 0.6s;
-    }
-    
-    .workflow-node.output {
-        bottom: 20%;
-        left: 10%;
-        animation-delay: 0.8s;
-    }
-    
-    .workflow-node.insight {
-        bottom: 20%;
-        right: 10%;
-        animation-delay: 1s;
-    }
-    
-    .workflow-line {
-        position: absolute;
-        background: linear-gradient(90deg, transparent, #10b981, transparent);
-        height: 2px;
-        opacity: 0;
-        animation: fadeIn 0.6s ease forwards, flowPulse 2s ease infinite;
-    }
-    
-    .line1 {
-        top: 25%;
-        left: 18%;
-        width: 20%;
-        transform: rotate(-15deg);
-        animation-delay: 1.2s;
-    }
-    
-    .line2 {
-        top: 25%;
-        right: 18%;
-        width: 20%;
-        transform: rotate(15deg);
-        animation-delay: 1.4s;
-    }
-    
-    .line3 {
-        bottom: 25%;
-        left: 18%;
-        width: 20%;
-        transform: rotate(15deg);
-        animation-delay: 1.6s;
-    }
-    
-    .line4 {
-        bottom: 25%;
-        right: 18%;
-        width: 20%;
-        transform: rotate(-15deg);
-        animation-delay: 1.8s;
-    }
-    
-    .workflow-icon {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        background: rgba(16, 185, 129, 0.2);
-        border-radius: 50%;
+        border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
-        animation: float 3s ease-in-out infinite;
+        margin-bottom: 12px;
+        transition: all 0.3s ease;
     }
     
-    .icon1 { top: 10%; left: 45%; animation-delay: 0s; }
-    .icon2 { top: 40%; left: 20%; animation-delay: 1s; }
-    .icon3 { top: 40%; right: 20%; animation-delay: 2s; }
-    .icon4 { bottom: 10%; left: 45%; animation-delay: 1.5s; }
+    .step-icon:hover {
+        background: rgba(16, 185, 129, 0.2);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);
+    }
     
-    @keyframes fadeInScale {
+    .step-icon svg {
+        width: 40px;
+        height: 40px;
+        color: #10b981;
+    }
+    
+    .step-label {
+        color: #94a3b8;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+    
+    .step-desc {
+        color: #64748b;
+        font-size: 12px;
+    }
+    
+    .pipeline-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 20px;
+        opacity: 0;
+        animation: fadeIn 0.6s ease forwards;
+    }
+    
+    .pipeline-arrow:nth-of-type(2) { animation-delay: 0.3s; }
+    .pipeline-arrow:nth-of-type(4) { animation-delay: 0.5s; }
+    .pipeline-arrow:nth-of-type(6) { animation-delay: 0.7s; }
+    
+    .pipeline-arrow svg {
+        width: 30px;
+        height: 30px;
+        color: #10b981;
+        animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes slideUp {
         from {
             opacity: 0;
-            transform: scale(0.8);
+            transform: translateY(20px);
         }
         to {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0);
         }
     }
     
     @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 0.6;
-        }
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
     
-    @keyframes flowPulse {
+    @keyframes pulse {
         0%, 100% {
             opacity: 0.4;
+            transform: scale(1);
         }
         50% {
-            opacity: 0.8;
+            opacity: 1;
+            transform: scale(1.1);
         }
     }
     
-    @keyframes float {
-        0%, 100% {
-            transform: translateY(0px);
-        }
-        50% {
-            transform: translateY(-10px);
-        }
+    /* Grid layout for pipeline */
+    .pipeline-grid {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+        align-items: center;
+        gap: 0;
     }
     
-    /* Mobile responsiveness for workflow */
     @media (max-width: 768px) {
-        .workflow-container {
-            height: 300px;
+        .pipeline-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
         }
-        .workflow-node {
-            font-size: 11px;
-            padding: 12px 16px;
+        .pipeline-arrow {
+            transform: rotate(90deg);
+            padding: 10px 0;
         }
-        .workflow-node.process {
-            font-size: 13px;
+        .step-icon {
+            width: 70px;
+            height: 70px;
         }
-        .workflow-icon {
-            width: 30px;
-            height: 30px;
+        .step-icon svg {
+            width: 35px;
+            height: 35px;
         }
     }
     </style>
@@ -352,53 +314,74 @@
                     <p class="max-w-xl text-base md:text-lg text-slate-400 mb-6 md:mb-8">A business student at Hermods specializing in International Purchasing & Sales, with deep expertise in Azure AI Foundry, Power Automate, and intelligent automation systems. Currently researching AI-powered analytics for logistics organizations.</p>
                 </div>
                 
-                <!-- Animated Workflow Diagram -->
+                <!-- Clean Automation Pipeline -->
                 <div class="relative z-10 md:w-1/2 hidden md:block">
-                    <div class="workflow-container">
-                        <!-- Connection Lines -->
-                        <div class="workflow-line line1"></div>
-                        <div class="workflow-line line2"></div>
-                        <div class="workflow-line line3"></div>
-                        <div class="workflow-line line4"></div>
-                        
-                        <!-- Workflow Nodes -->
-                        <div class="workflow-node ai">
-                            <svg class="inline-block w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                            AI Model
-                        </div>
-                        
-                        <div class="workflow-node data">
-                            <svg class="inline-block w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path></svg>
-                            Data Source
-                        </div>
-                        
-                        <div class="workflow-node process">
-                            <svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                            Automation Engine
-                        </div>
-                        
-                        <div class="workflow-node output">
-                            <svg class="inline-block w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                            Analytics
-                        </div>
-                        
-                        <div class="workflow-node insight">
-                            <svg class="inline-block w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            Optimization
-                        </div>
-                        
-                        <!-- Floating Icons -->
-                        <div class="workflow-icon icon1">
-                            <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                        </div>
-                        <div class="workflow-icon icon2">
-                            <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
-                        </div>
-                        <div class="workflow-icon icon3">
-                            <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                        </div>
-                        <div class="workflow-icon icon4">
-                            <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    <div class="automation-pipeline">
+                        <div class="pipeline-grid">
+                            <!-- Step 1: Input -->
+                            <div class="pipeline-step">
+                                <div class="step-icon">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+                                    </svg>
+                                </div>
+                                <div class="step-label">Data Input</div>
+                                <div class="step-desc">Connect sources</div>
+                            </div>
+                            
+                            <!-- Arrow 1 -->
+                            <div class="pipeline-arrow">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
+                            </div>
+                            
+                            <!-- Step 2: AI Processing -->
+                            <div class="pipeline-step">
+                                <div class="step-icon">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                    </svg>
+                                </div>
+                                <div class="step-label">AI Analysis</div>
+                                <div class="step-desc">Process & learn</div>
+                            </div>
+                            
+                            <!-- Arrow 2 -->
+                            <div class="pipeline-arrow">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
+                            </div>
+                            
+                            <!-- Step 3: Automation -->
+                            <div class="pipeline-step">
+                                <div class="step-icon">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                </div>
+                                <div class="step-label">Automate</div>
+                                <div class="step-desc">Execute tasks</div>
+                            </div>
+                            
+                            <!-- Arrow 3 -->
+                            <div class="pipeline-arrow">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
+                            </div>
+                            
+                            <!-- Step 4: Results -->
+                            <div class="pipeline-step">
+                                <div class="step-icon">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                    </svg>
+                                </div>
+                                <div class="step-label">Insights</div>
+                                <div class="step-desc">Optimize results</div>
+                            </div>
                         </div>
                     </div>
                 </div>
