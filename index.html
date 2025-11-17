@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haroot Al Rashed | AI Automation & Business Intelligence Portfolio</title>
-    <meta name="description" content="The portfolio of Haroot Al Rashed, an nternational Logistics student specializing in AI automation, Azure AI Foundry, Power Automate, and business process optimization.">
+    <meta name="description" content="The portfolio of Haroot Al Rashed, an International Purchasing & Sales student specializing in AI automation, Azure AI Foundry, Power Automate, and business process optimization.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -106,6 +106,177 @@
         whitespace: nowrap;
     }
     /* --- FIX END --- */
+    
+    /* --- Animated Workflow Diagram --- */
+    .workflow-container {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .workflow-node {
+        position: absolute;
+        background: rgba(16, 185, 129, 0.1);
+        border: 2px solid #10b981;
+        border-radius: 12px;
+        padding: 16px 20px;
+        color: #10b981;
+        font-size: 14px;
+        font-weight: 600;
+        opacity: 0;
+        animation: fadeInScale 0.6s ease forwards;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15);
+    }
+    
+    .workflow-node.ai {
+        top: 20%;
+        left: 10%;
+        animation-delay: 0.2s;
+    }
+    
+    .workflow-node.data {
+        top: 20%;
+        right: 10%;
+        animation-delay: 0.4s;
+    }
+    
+    .workflow-node.process {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(16, 185, 129, 0.15);
+        font-size: 16px;
+        animation-delay: 0.6s;
+    }
+    
+    .workflow-node.output {
+        bottom: 20%;
+        left: 10%;
+        animation-delay: 0.8s;
+    }
+    
+    .workflow-node.insight {
+        bottom: 20%;
+        right: 10%;
+        animation-delay: 1s;
+    }
+    
+    .workflow-line {
+        position: absolute;
+        background: linear-gradient(90deg, transparent, #10b981, transparent);
+        height: 2px;
+        opacity: 0;
+        animation: fadeIn 0.6s ease forwards, flowPulse 2s ease infinite;
+    }
+    
+    .line1 {
+        top: 25%;
+        left: 18%;
+        width: 20%;
+        transform: rotate(-15deg);
+        animation-delay: 1.2s;
+    }
+    
+    .line2 {
+        top: 25%;
+        right: 18%;
+        width: 20%;
+        transform: rotate(15deg);
+        animation-delay: 1.4s;
+    }
+    
+    .line3 {
+        bottom: 25%;
+        left: 18%;
+        width: 20%;
+        transform: rotate(15deg);
+        animation-delay: 1.6s;
+    }
+    
+    .line4 {
+        bottom: 25%;
+        right: 18%;
+        width: 20%;
+        transform: rotate(-15deg);
+        animation-delay: 1.8s;
+    }
+    
+    .workflow-icon {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: rgba(16, 185, 129, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    .icon1 { top: 10%; left: 45%; animation-delay: 0s; }
+    .icon2 { top: 40%; left: 20%; animation-delay: 1s; }
+    .icon3 { top: 40%; right: 20%; animation-delay: 2s; }
+    .icon4 { bottom: 10%; left: 45%; animation-delay: 1.5s; }
+    
+    @keyframes fadeInScale {
+        from {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 0.6;
+        }
+    }
+    
+    @keyframes flowPulse {
+        0%, 100% {
+            opacity: 0.4;
+        }
+        50% {
+            opacity: 0.8;
+        }
+    }
+    
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+    
+    /* Mobile responsiveness for workflow */
+    @media (max-width: 768px) {
+        .workflow-container {
+            height: 300px;
+        }
+        .workflow-node {
+            font-size: 11px;
+            padding: 12px 16px;
+        }
+        .workflow-node.process {
+            font-size: 13px;
+        }
+        .workflow-icon {
+            width: 30px;
+            height: 30px;
+        }
+    }
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -120,8 +291,8 @@
 
     <div class="hidden md:flex flex-col items-center justify-center fixed bottom-0 right-12 w-10 z-30">
         <div class="writing-mode-vertical mb-6">
-            <a href="mailto:Harry@harootal.com" class="text-slate-400 hover:text-green-300 font-mono tracking-widest text-sm transition-all duration-300 hover:-translate-y-1 block">
-                Harry@harootal.com
+            <a href="/cdn-cgi/l/email-protection#e5ad8497979ca58d84978a8a918489cb868a88" class="text-slate-400 hover:text-green-300 font-mono tracking-widest text-sm transition-all duration-300 hover:-translate-y-1 block">
+                <span class="__cf_email__" data-cfemail="7b331a0909023b131a0914140f1a1755181416">[email&#160;protected]</span>
             </a>
         </div>
         <div class="h-24 w-px bg-slate-600"></div>
@@ -171,14 +342,65 @@
 
         <main class="container mx-auto px-6 md:px-24 lg:px-48">
             
-            <section class="min-h-screen flex flex-col justify-center text-left relative">
-                <div class="relative z-10">
+            <section class="min-h-screen flex flex-col md:flex-row items-center justify-between text-left relative gap-12">
+                <div class="relative z-10 md:w-1/2">
                     <h1 class="text-lg font-mono text-green-300 mb-4">Hi, my name is</h1>
                     <h2 class="text-5xl md:text-7xl font-black text-slate-200 mb-2 md:mb-4">
                         Haroot Al Rashed.
                     </h2>
                     <h3 class="text-4xl md:text-6xl font-bold text-slate-400 mb-6">I automate businesses with AI.</h3>
-                    <p class="max-w-xl text-base md:text-lg text-slate-400 mb-6 md:mb-8">A business student at Hermods specializing in nternational Logistics, with deep expertise in Azure AI Foundry, Power Automate, and intelligent automation systems. Currently researching AI-powered analytics for logistics organizations.</p>
+                    <p class="max-w-xl text-base md:text-lg text-slate-400 mb-6 md:mb-8">A business student at Hermods specializing in International Purchasing & Sales, with deep expertise in Azure AI Foundry, Power Automate, and intelligent automation systems. Currently researching AI-powered analytics for logistics organizations.</p>
+                </div>
+                
+                <!-- Animated Workflow Diagram -->
+                <div class="relative z-10 md:w-1/2 hidden md:block">
+                    <div class="workflow-container">
+                        <!-- Connection Lines -->
+                        <div class="workflow-line line1"></div>
+                        <div class="workflow-line line2"></div>
+                        <div class="workflow-line line3"></div>
+                        <div class="workflow-line line4"></div>
+                        
+                        <!-- Workflow Nodes -->
+                        <div class="workflow-node ai">
+                            <svg class="inline-block w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            AI Model
+                        </div>
+                        
+                        <div class="workflow-node data">
+                            <svg class="inline-block w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path></svg>
+                            Data Source
+                        </div>
+                        
+                        <div class="workflow-node process">
+                            <svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            Automation Engine
+                        </div>
+                        
+                        <div class="workflow-node output">
+                            <svg class="inline-block w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            Analytics
+                        </div>
+                        
+                        <div class="workflow-node insight">
+                            <svg class="inline-block w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Optimization
+                        </div>
+                        
+                        <!-- Floating Icons -->
+                        <div class="workflow-icon icon1">
+                            <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        </div>
+                        <div class="workflow-icon icon2">
+                            <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+                        </div>
+                        <div class="workflow-icon icon3">
+                            <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        </div>
+                        <div class="workflow-icon icon4">
+                            <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -191,7 +413,7 @@
                 <div class="flex flex-col md:flex-row items-start gap-10">
                     <div class="md:w-3/5 text-lg space-y-4">
                         <p>
-                            Hello! I'm Haroot, a dedicated business student at Hermods in Göteborg, Sweden, studying nternational Logistics. I combine academic business knowledge with hands-on technical expertise in AI automation and Microsoft cloud technologies.
+                            Hello! I'm Haroot, a dedicated business student at Hermods in Göteborg, Sweden, studying International Purchasing & Sales. I combine academic business knowledge with hands-on technical expertise in AI automation and Microsoft cloud technologies.
                         </p>
                         <p>
                             Currently working on my thesis (examensarbete) focusing on AI-powered analytics in logistics organizations, I've developed deep expertise in Azure AI Foundry, Power Automate M365, and building intelligent automation systems. My technical skills complement my business education, allowing me to bridge the gap between strategic thinking and practical implementation.
@@ -245,7 +467,7 @@
 
                 <div class="space-y-10 max-w-4xl">
                     <div class="bg-slate-800 p-6 rounded-md">
-                        <h3 class="text-xl font-bold text-slate-100">Business Systems Development</h3>
+                        <h3 class="text-xl font-bold text-slate-100">Bright Skills — Business Systems Development</h3>
                         <p class="text-slate-300 mt-2">Developing comprehensive business operations systems for an automation and AI consultancy, including service model design (Process Automation, Academy Training, AI Product Development), client engagement workflows, and strategic documentation.</p>
                         <ul class="mt-3 text-slate-400 list-disc list-inside space-y-1">
                             <li>Created custom Claude skills for Power Automate M365 and Azure AI Foundry expertise</li>
@@ -272,7 +494,7 @@
                             <li>AI Paralegal Assistant for contract and NDA review</li>
                             <li>GDPR DPA Compliance Checker with automated report generation</li>
                             <li>Full-stack development with authentication and database integration</li>
-                            <li>Research into AI Model integration for law firm automation</li>
+                            <li>Research into Harvey AI integration for law firm automation</li>
                         </ul>
                     </div>
 
@@ -395,7 +617,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
                         <div class="md:col-span-7">
                             <p class="font-mono text-sm text-green-300 mb-2">Business Systems</p>
-                            <h3 class="text-2xl font-bold text-slate-200 mb-4 hover:text-green-300 transition-colors"><a href="#">Platform Development</a></h3>
+                            <h3 class="text-2xl font-bold text-slate-200 mb-4 hover:text-green-300 transition-colors"><a href="#">Bright Skills Platform Development</a></h3>
                             <div class="bg-slate-800 p-6 rounded-md shadow-lg">
                                 <p class="text-slate-300">Comprehensive business operations system for an automation consultancy, including three-service model design (Process Automation, Academy Training, AI Product Development), custom Claude skills, MCP server integrations, and strategic client engagement frameworks with flexible ownership structures.</p>
                             </div>
@@ -450,7 +672,7 @@
                             <li class="flex items-center gap-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" class="text-green-300 flex-shrink-0"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 <button class="copy-btn" data-copy="Harry@harootal.com" aria-label="Copy email">
-                                    <span class="copy-text text-green-300">Harry@harootal.com</span>
+                                    <span class="copy-text text-green-300"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1d557c6f6f645d757c6f7272697c71337e7270">[email&#160;protected]</a></span>
                                     <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                     <span class="copy-feedback" aria-hidden="true">Copied</span>
                                 </button>
@@ -474,7 +696,7 @@
                         </ul>
 
                         <div class="mt-6 flex flex-wrap gap-3">
-                            <a href="mailto:Harry@harootal.com" class="inline-flex items-center gap-2 bg-transparent border border-green-300 text-green-300 font-mono text-sm px-4 py-2 rounded-md hover:bg-green-300/10 transition-colors">Email</a>
+                            <a href="/cdn-cgi/l/email-protection#9dd5fcefefe4ddf5fceff2f2e9fcf1b3fef2f0" class="inline-flex items-center gap-2 bg-transparent border border-green-300 text-green-300 font-mono text-sm px-4 py-2 rounded-md hover:bg-green-300/10 transition-colors">Email</a>
                             <a href="https://www.linkedin.com/in/haroot-al-rashed-47737b194" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-green-500 text-slate-900 font-mono text-sm px-4 py-2 rounded-md hover:bg-green-600 transition-colors">LinkedIn</a>
                         </div>
                         <!-- ARIA live region for copy feedback -->
@@ -489,7 +711,7 @@
         </footer>
     </div>
     
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // --- Typewriter Effect for AI ---
         const typewriterEffect = (element, text, callback) => {
             let i = 0;
@@ -532,7 +754,7 @@
 
             const knowledgeBase = `
                 About Haroot Al Rashed:
-                - Business student at Hermods in Göteborg, Sweden, studying nternational Logistics
+                - Business student at Hermods in Göteborg, Sweden, studying International Purchasing & Sales
                 - Currently working on thesis (examensarbete) focusing on AI-powered analytics in logistics organizations
                 - Deep expertise in Azure AI Foundry, Power Automate M365, and intelligent automation systems
                 - Combines academic business knowledge with hands-on technical expertise in AI automation
@@ -540,7 +762,7 @@
                 - Passionate about using AI and automation to solve real business problems
 
                 Current Work & Projects:
-                - Developing comprehensive business systems for automation and AI consultancy
+                - Bright Skills: Developing comprehensive business systems for automation and AI consultancy
                 - Created custom Claude skills for Power Automate M365 and Azure AI Foundry expertise
                 - Built MCP server integrations for Miro boards and workflow automation
                 - AI Legal Automation: Built AI Paralegal Assistant and GDPR DPA Compliance Checker
@@ -560,7 +782,7 @@
                 - TypeScript/JavaScript: Development and scripting
 
                 Business Expertise:
-                - nternational Logistics education
+                - International Purchasing & Sales education
                 - Supply chain and logistics optimization
                 - Process automation and business intelligence
                 - Strategic business system development
@@ -777,19 +999,3 @@
                                 if (live) live.textContent = '';
                                 timeouts.delete(btn);
                             }, 2000);
-                            timeouts.set(btn, t);
-                        } catch (err) {
-                            console.error('Copy failed', err);
-                            if (live) live.textContent = 'Copy failed. Please select and copy manually.';
-                        }
-                    });
-                });
-            })();
-
-            
-        });
-
-    </script>
-
-</body>
-</html>
